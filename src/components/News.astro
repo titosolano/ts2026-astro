@@ -1,0 +1,70 @@
+---
+import { client, urlFor } from '../lib/sanity'
+import SectionHeader from './SectionHeader.astro'
+import NewsSlider from './NewsSlider.tsx'
+import type { Milestone } from './NewsSlider.tsx'
+
+const FALLBACK_MILESTONES: Milestone[] = [
+  {
+    title: 'Client-First Certification',
+    body: 'Client-First revolutionized the way we work with Webflow. It was a before and after I started using it. And gladly, I was selected to participate in the first-ever boot camp and was one of the first six officially certified Client-First Webflow developers.',
+    url: 'https://www.finsweet.com/client-first/certified',
+    linkLabel: 'More info',
+    iconUrl: '/images/trophy-1.svg',
+  },
+  {
+    title: 'Clone Comp Grand Prize',
+    body: 'I was aware of how big and friendly the international community around Webflow is when I dared to participate in the biggest Webflow hackathon ever. One of the best experiences of my career was winning the contest. An intense week!',
+    url: 'https://clonecomp.webflow.io/',
+    linkLabel: 'More info',
+    iconUrl: '/images/trophy-1.svg',
+  },
+  {
+    title: "Finsweet's Learn it Live",
+    body: "I received a cordial invitation from Finsweet to participate in a live broadcast to talk about Client-First. I learned Webflow by watching tutorials on the web, and of course, I have always admired Joe and his team so much; this was very exciting!",
+    url: 'https://www.youtube.com/watch?v=EOqVIXrLO2g',
+    linkLabel: 'More info',
+    iconUrl: '/images/trophy-1.svg',
+  },
+  {
+    title: 'The Speed Build Challenge',
+    body: 'Another exciting adventure was participating as one of the worldwide qualifiers for the quarter-finals of the speed build competition during No-Code Conf 2021. Despite not making it to the finals, meeting and sharing with some of the fastest talents in the community was amazing.',
+    url: 'https://webflow.com/nocodeconf/2021/speed-build-challenge',
+    linkLabel: 'More info',
+    iconUrl: '/images/trophy-1.svg',
+  },
+  {
+    title: 'Webflow Café',
+    body: 'Great experience sharing with one of the largest Spanish-speaking Webflow communities, this time with a tutorial about how to create a product customizer directly in Webflow using images and SVG files.',
+    url: 'https://www.youtube.com/watch?v=q5itlMMbIXM',
+    linkLabel: 'More info',
+    iconUrl: '/images/trophy-1.svg',
+  },
+]
+
+let milestones: Milestone[] = FALLBACK_MILESTONES
+
+try {
+  const data = await client?.fetch(`
+    *[_type == "milestone"] | order(order asc) {
+      title,
+      body,
+      url,
+      linkLabel,
+      "iconUrl": icon.asset->url,
+    }
+  `)
+  if (data?.length) milestones = data
+} catch {
+  // Sanity not configured — fallback data is used
+}
+---
+
+<section id="news" class="section-news">
+  <SectionHeader
+    label="Milestones"
+    subtitle="Structure first. Decisions with intent. Systems that scale."
+    description="Every project starts with clarity. I break down complexity, align goals with constraints, and build digital systems where design, logic, and execution work together with precision."
+  />
+  <NewsSlider client:load items={milestones} />
+</section>

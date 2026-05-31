@@ -1,0 +1,50 @@
+---
+import { client } from '../lib/sanity'
+import Accordion from './Accordion.tsx'
+import type { FaqItem } from './Accordion.tsx'
+
+const FALLBACK_FAQS: FaqItem[] = [
+  {
+    question: 'What kind of companies do you work with?',
+    answer: 'I typically collaborate with design-driven companies, startups, and agencies looking to improve the quality, structure, and performance of their digital presence. Projects often involve high-end marketing websites, scalable digital platforms, system-based redesigns, or experiences that require a strong balance between design and technical execution.',
+  },
+  {
+    question: 'Do you collaborate with agencies or internal teams?',
+    answer: 'Frequently. Many agencies work with me as an extension of their team to help execute ambitious digital projects with precision and low friction. This can range from technical collaboration and interaction development to fully white-label partnerships where design quality and implementation detail are critical.',
+  },
+  {
+    question: 'Do you provide design services?',
+    answer: 'Yes. My background started in branding, visual design, and UI/UX, and it continues to be a core part of how I approach digital projects. I can collaborate across the entire process, from structure and user experience to interface design and technical execution.',
+  },
+  {
+    question: 'How do you approach modern workflows and AI?',
+    answer: 'I use modern workflows, automation, and AI as practical tools to accelerate research, prototyping, development, debugging, and iteration. Combined with experience and system thinking, this allows faster execution while maintaining structure, consistency, and high-quality outcomes.',
+  },
+]
+
+let faqs: FaqItem[] = FALLBACK_FAQS
+
+try {
+  const data = await client?.fetch(`
+    *[_type == "faq"] | order(order asc) {
+      question,
+      answer,
+    }
+  `)
+  if (data?.length) faqs = data
+} catch {
+  // Sanity not configured — fallback data is used
+}
+---
+
+<section class="section_faq5">
+  <div class="faq_component">
+    <div class="padding-global">
+      <div class="container-large">
+        <div class="faq_main-wrapper">
+          <Accordion client:load items={faqs} />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

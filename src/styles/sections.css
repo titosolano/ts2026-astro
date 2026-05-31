@@ -222,29 +222,41 @@
 
 
 /* ──────────────────────────────────────────────────────────────
-   NEWS → News.astro (pendiente)
-   news_main-wrapper (grid 3 columnas)
-     news_item (flex column, padding)
-       news_item-icon-wrapper
-       news_item-content-wrapper
-   Los posts vendrán de Sanity con el schema "post".
+   NEWS → News.astro + NewsSlider.tsx
+   section-news
+     section-header-01_component  (via SectionHeader.astro)
+     slider-main_component
+       slider-main_slider-wrapper (border l/r, overflow clip)
+         swiper > swiper-wrapper
+           slider-main_item (swiper-slide, 33.33% wide, border-right)
+             news_item (flex col, padding)
+               news_item-icon-wrapper
+               news_item-content-wrapper
+                 heading-cards
+                 text-size-small.text-style-muted
+                 external-button_component (optional link)
+       study-case-slider_bottom (prev/next buttons)
 ────────────────────────────────────────────────────────────── */
 
-.news_main-wrapper { grid-column-gap: 4vw; grid-row-gap: 4vw; grid-template-columns: 1fr 1fr 1fr; display: grid; }
-.news_item { grid-column-gap: 1.5rem; grid-row-gap: 1rem; flex-flow: column; padding: 2rem; display: flex; }
+.slider-main_component { margin-top: 1px; position: relative; }
+.slider-main_slider-wrapper { border-right: 1px solid var(--brand--grey-lines); border-left: 1px solid var(--brand--grey-lines); overflow: clip; }
+.slider-main_list-wrapper { margin-right: -1px; }
+.slider-main_list { display: flex; align-items: stretch; }
+.slider-main_item { border-right: 1px solid var(--brand--grey-lines); flex: none; width: 33.33%; height: auto; transition: opacity .5s ease-in-out; display: flex; }
+
+.news_item { gap: 1rem; flex-direction: column; padding: 2rem; display: flex; height: 100%; }
 .news_item-icon-wrapper { width: 2rem; height: 2rem; position: relative; overflow: hidden; }
 .news_icon { object-fit: contain; justify-content: center; align-items: center; width: 100%; height: 100%; line-height: 0; display: flex; }
 .news_item-content-wrapper { grid-row-gap: 1rem; flex-direction: column; flex: 1; align-items: flex-start; display: flex; }
 
+.slider-main_script { display: none; }
+
 @media screen and (max-width: 991px) {
-  .news_main-wrapper { grid-column-gap: 2.5rem; grid-row-gap: 3rem; grid-template-columns: 1fr 1fr; }
+  .slider-main_item { width: 50%; }
   .news_item-icon-wrapper { width: 3rem; height: 3rem; }
 }
 @media screen and (max-width: 767px) {
-  .news_main-wrapper { grid-column-gap: 2rem; grid-row-gap: 2.5rem; }
-}
-@media screen and (max-width: 479px) {
-  .news_main-wrapper { grid-row-gap: 2rem; grid-template-columns: 1fr; }
+  .slider-main_item { width: 100%; }
 }
 
 
