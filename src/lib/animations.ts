@@ -13,16 +13,22 @@
  *   slide-down   → baja desde arriba + fade
  *   slide-left   → se mueve a la izquierda (entra desde la derecha) + fade
  *   slide-right  → se mueve a la derecha (entra desde la izquierda) + fade
+ *   slide-blur   → blur-fade reactivo al estado del swiper-slide (.is-active)
+ *                  anima IN cuando el slide padre se activa, OUT cuando se desactiva
  *
  * Atributos opcionales:
- *   data-anim-delay      → segundos de retraso (default: 0)
- *   data-anim-duration   → duración en segundos (default: 0.7)
- *   data-anim-stagger    → delay entre hijos en cascada (default: null)
- *   data-anim-children   → selector CSS de hijos para stagger (default: ":scope > *")
- *   data-anim-trigger    → cuándo animar: "enter" | "load" | "both" (default: "enter")
- *   data-anim-threshold  → fracción visible para disparar (default: 0.15)
- *   data-anim-distance   → distancia de desplazamiento en px (default: 32)
- *   data-anim-ease       → curva de easing GSAP (default: "power2.inOut")
+ *   data-anim-delay        → segundos de retraso (default: 0)
+ *   data-anim-duration     → duración en segundos (default: 0.7)
+ *   data-anim-stagger      → delay entre hijos en cascada (default: null)
+ *   data-anim-children     → selector CSS de hijos para stagger (default: ":scope > *")
+ *   data-anim-trigger      → cuándo animar: "enter" | "load" | "both" (default: "enter")
+ *   data-anim-threshold    → fracción visible para disparar (default: 0.15)
+ *   data-anim-distance     → distancia de desplazamiento en px (default: 32)
+ *   data-anim-ease         → curva de easing GSAP (default: "power2.inOut")
+ *   data-anim-out-duration → duración del OUT en slide-blur (default: 0.45)
+ *   data-anim-out-ease     → easing del OUT en slide-blur (default: "power2.inOut")
+ *   data-anim-blur         → intensidad del blur en slide-blur en px (default: 18)
+ *   data-anim-scale        → scale inicial en slide-blur (default: 0.96)
  *
  * Solo activo en desktop con mouse (≥992px + hover: hover + pointer: fine).
  * En mobile/touch los elementos siempre son visibles.
@@ -36,7 +42,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 // ── Tipos ─────────────────────────────────────────────────────
 
-type AnimType = 'slide-up' | 'slide-down' | 'slide-left' | 'slide-right' | 'fade' | 'blur-fade'
+type AnimType = 'slide-up' | 'slide-down' | 'slide-left' | 'slide-right' | 'fade' | 'blur-fade' | 'slide-blur'
 type AnimTrigger = 'enter' | 'load' | 'both'
 
 interface AnimConfig {
@@ -53,6 +59,10 @@ interface AnimConfig {
   start: string | null
   end: string | null
   noOpacity: boolean
+  outDuration: number
+  outEase: string
+  blur: number
+  scale: number
 }
 
 interface AnimControl {
@@ -75,7 +85,11 @@ const DEFAULTS: Omit<AnimConfig, 'type'> = {
   threshold:  0.15,
   start:      null,
   end:        null,
-  noOpacity:  false,
+  noOpacity:   false,
+  outDuration: 0.45,
+  outEase:     'power2.inOut',
+  blur:        18,
+  scale:       0.96,
 }
 
 // ── Helpers ───────────────────────────────────────────────────
@@ -105,7 +119,11 @@ function parseConfig(el: HTMLElement): AnimConfig {
     threshold: toNum(d.animThreshold, DEFAULTS.threshold),
     start:     d.animStart ?? DEFAULTS.start,
     end:       d.animEnd ?? DEFAULTS.end,
-    noOpacity: toBool(d.animNoOpacity, DEFAULTS.noOpacity),
+    noOpacity:   toBool(d.animNoOpacity, DEFAULTS.noOpacity),
+    outDuration: toNum(d.animOutDuration, DEFAULTS.outDuration),
+    outEase:     d.animOutEase ?? DEFAULTS.outEase,
+    blur:        toNum(d.animBlur, DEFAULTS.blur),
+    scale:       toNum(d.animScale, DEFAULTS.scale),
   }
 }
 
@@ -203,6 +221,87 @@ function attachScrollTrigger(
   })
 }
 
+// ── Slide-blur ────────────────────────────────────────────────
+
+function slideBlurHidden(cfg: AnimConfig): gsap.TweenVars {
+  return { opacity: 0, filter: `blur(${cfg.blur}px)`, scale: cfg.scale }
+}
+
+const slideBlurVisible: gsap.TweenVars = { opacity: 1, filter: 'blur(0px)', scale: 1 }
+
+function slideBlurAnimateIn(el: HTMLElement, cfg: AnimConfig): void {
+  const targets = getTargets(el, cfg)
+  gsap.killTweensOf(targets)
+  gsap.fromTo(targets, slideBlurHidden(cfg), {
+    ...slideBlurVisible,
+    duration:  cfg.duration,
+    delay:     cfg.delay,
+    ease:      cfg.ease,
+    stagger:   cfg.stagger ?? undefined,
+    overwrite: 'auto',
+    onStart:    () => targets.forEach(t => { t.style.willChange = 'opacity, filter, transform' }),
+    onComplete: () => targets.forEach(t => { t.style.willChange = '' }),
+  })
+}
+
+function slideBlurAnimateOut(el: HTMLElement, cfg: AnimConfig): void {
+  const targets = getTargets(el, cfg)
+  gsap.killTweensOf(targets)
+  gsap.to(targets, {
+    ...slideBlurHidden(cfg),
+    duration:  cfg.outDuration,
+    ease:      cfg.outEase,
+    stagger:   cfg.stagger ?? undefined,
+    overwrite: 'auto',
+    onStart:    () => targets.forEach(t => { t.style.willChange = 'opacity, filter, transform' }),
+    onComplete: () => targets.forEach(t => { t.style.willChange = '' }),
+  })
+}
+
+function initSlideBlur(
+  els: HTMLElement[],
+  prefersReduced: boolean,
+  activeClass = 'is-active',
+  slideSelector = '.swiper-slide',
+): void {
+  const observedSlides = new WeakSet<Element>()
+
+  function handleSlide(slide: Element): void {
+    const isActive = slide.classList.contains(activeClass)
+    const items = Array.from(slide.querySelectorAll<HTMLElement>(`[data-anim="slide-blur"]`))
+    items.forEach(el => {
+      const cfg = parseConfig(el)
+      if (prefersReduced) { gsap.set(getTargets(el, cfg), slideBlurVisible); return }
+      isActive ? slideBlurAnimateIn(el, cfg) : slideBlurAnimateOut(el, cfg)
+    })
+  }
+
+  function observeSlide(slide: Element): void {
+    if (observedSlides.has(slide)) return
+    observedSlides.add(slide)
+    new MutationObserver(() => handleSlide(slide)).observe(slide, {
+      attributes: true, attributeFilter: ['class'],
+    })
+  }
+
+  els.forEach(el => {
+    const cfg = parseConfig(el)
+    const slide = el.closest<HTMLElement>(slideSelector)
+    if (!slide) return
+
+    if (prefersReduced) {
+      gsap.set(getTargets(el, cfg), slideBlurVisible)
+    } else {
+      gsap.set(getTargets(el, cfg), slide.classList.contains(activeClass)
+        ? slideBlurVisible
+        : slideBlurHidden(cfg)
+      )
+    }
+
+    observeSlide(slide)
+  })
+}
+
 // ── Init ──────────────────────────────────────────────────────
 
 const VALID_TYPES = new Set<AnimType>([
@@ -220,7 +319,12 @@ export function initAnimations(selector = '[data-anim]'): void {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const played = new WeakSet<HTMLElement>()
 
+  // slide-blur: reactivo al estado del swiper-slide, no al scroll
+  const slideBlurEls = gsap.utils.toArray<HTMLElement>('[data-anim="slide-blur"]')
+  if (slideBlurEls.length) initSlideBlur(slideBlurEls, prefersReduced)
+
   gsap.utils.toArray<HTMLElement>(selector).forEach(el => {
+    if (el.dataset.anim === 'slide-blur') return // ya manejado arriba
     const cfg = parseConfig(el)
 
     if (!VALID_TYPES.has(cfg.type)) return
