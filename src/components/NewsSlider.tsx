@@ -12,41 +12,47 @@ export default function NewsSlider({ items }: { items: Milestone[] }) {
 
   useEffect(() => {
     const el = sectionRef.current
-    if (!el) return
+    if (!el || !items.length) return
 
-    const swiperEl = el.querySelector<HTMLElement>('.swiper')
-    if (!swiperEl) return
+    let swiper: Swiper | null = null
 
-    const swiper = new Swiper(swiperEl, {
-      modules: [Navigation, Autoplay, Mousewheel, Keyboard],
-      speed: 400,
-      loop: true,
-      autoplay: { delay: 2000, disableOnInteraction: false },
-      autoHeight: false,
-      centeredSlides: true,
-      followFinger: true,
-      freeMode: false,
-      slideToClickedSlide: false,
-      slidesPerView: 1,
-      spaceBetween: 0,
-      rewind: false,
-      mousewheel: { forceToAxis: true },
-      keyboard: { enabled: true, onlyInViewport: true },
-      navigation: {
-        nextEl: el.querySelector<HTMLElement>('.news-swiper-next'),
-        prevEl: el.querySelector<HTMLElement>('.news-swiper-prev'),
-        disabledClass: 'is-disabled',
-      },
-      slideActiveClass: 'is-active',
-      slideDuplicateActiveClass: 'is-active',
-      breakpoints: {
-        768: { slidesPerView: 2, spaceBetween: 0 },
-        992: { slidesPerView: 3, spaceBetween: 0 },
-      },
+    const raf = requestAnimationFrame(() => {
+      const swiperEl = el.querySelector<HTMLElement>('.swiper')
+      if (!swiperEl) return
+
+      swiper = new Swiper(swiperEl, {
+        modules: [Navigation, Autoplay, Mousewheel, Keyboard],
+        speed: 400,
+        loop: true,
+        rewind: false,
+        autoplay: { delay: 2000, disableOnInteraction: false },
+        autoHeight: false,
+        centeredSlides: false,
+        followFinger: true,
+        freeMode: false,
+        slideToClickedSlide: false,
+        slidesPerView: 1,
+        spaceBetween: 0,
+        mousewheel: { forceToAxis: true },
+        keyboard: { enabled: true, onlyInViewport: true },
+        navigation: {
+          nextEl: el.querySelector<HTMLElement>('.news-swiper-next'),
+          prevEl: el.querySelector<HTMLElement>('.news-swiper-prev'),
+          disabledClass: 'is-disabled',
+        },
+        slideActiveClass: 'is-active',
+        breakpoints: {
+          768: { slidesPerView: 2, spaceBetween: 0 },
+          992: { slidesPerView: 3, spaceBetween: 0 },
+        },
+      })
     })
 
-    return () => swiper.destroy()
-  }, [])
+    return () => {
+      cancelAnimationFrame(raf)
+      swiper?.destroy()
+    }
+  }, [items])
 
   return (
     <div className="slider-main_component" ref={sectionRef}>

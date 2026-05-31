@@ -2,8 +2,6 @@
 import ButtonCall from './ButtonCall.astro'
 import NavClock from './NavClock.tsx'
 
-const year = new Date().getFullYear()
-
 const navLinks = [
   { href: '#work',         label: 'Work' },
   { href: '#approach',     label: 'Approach' },
@@ -49,7 +47,7 @@ const navLinks = [
               <div class="spacer-medium"></div>
               <div class="footer_menu-list">
                 {navLinks.map(({ href, label }) => (
-                  <a href={href} class="footer_link w-inline-block">
+                  <a href={href} class="footer_link">
                     <div>{label}</div>
                   </a>
                 ))}
@@ -75,8 +73,11 @@ const navLinks = [
 
           <div class="footer4_bottom-wrapper">
             <div class="footer4_credit-text">
-              [© {year} Tito Solano. All rights reserved.]
+              [© <span id="footer-year"></span> Tito Solano. All rights reserved.]
             </div>
+            <script>
+              document.getElementById('footer-year').textContent = new Date().getFullYear()
+            </script>
           </div>
 
         </div>

@@ -243,6 +243,30 @@ The chain that works: slide element is `display: flex; flex-direction: column` �
 
 ---
 
+## CSS Conventions
+
+### Links must use `color: inherit`
+
+All anchor elements (`<a>`) must use `color: inherit` — never a hardcoded color token. This ensures links automatically pick up the color of their parent component, making them work correctly across sections with different color schemes (dark footer, light sections, etc.) without needing overrides.
+
+Never do: `color: var(--some-token)` or `color: #fff` on a link class.
+Always do: `color: inherit` and let the component or section define the text color.
+
+### Dynamic values in a static site
+
+The site is statically built — any value computed at build time (like `new Date()` in Astro frontmatter) is baked into the HTML and becomes stale until the next deploy. For values that must stay current regardless of deploy frequency, resolve them in the browser via an inline `<script>` tag in the Astro component.
+
+```astro
+<span id="some-value"></span>
+<script>
+  document.getElementById('some-value').textContent = new Date().getFullYear()
+</script>
+```
+
+This pattern applies to: current year in copyright notices, any date-relative content, or anything that would look wrong if the site goes months without a rebuild.
+
+---
+
 ## Working Principles
 
 1. **Always check the Webflow reference first.** Before writing HTML or CSS for a section, grep the `.webflow` files. Class names, structure, and responsive behavior are all there.

@@ -588,7 +588,7 @@
 .footer_content { z-index: 1; position: relative; }
 .footer_background { background-image: url('/images/background-footer.avif'); background-position: 50%; background-size: cover; background-attachment: fixed; position: absolute; inset: 0%; }
 .footer_overlay { -webkit-backdrop-filter: blur(1px); backdrop-filter: blur(1px); background-image: linear-gradient(#2323246b 1%, #2323248a); width: 100%; height: 100%; position: absolute; inset: 0%; }
-.footer_logo-link { letter-spacing: .2em; text-transform: uppercase; color: var(--navbar--text-color); flex: none; padding-left: 0; transition: opacity .2s ease; display: block; }
+.footer_logo-link { letter-spacing: .2em; text-transform: uppercase; color: inherit; flex: none; padding-left: 0; transition: opacity .2s ease; display: block; }
 .footer_logo-link.w--current { letter-spacing: .2em; text-transform: uppercase; }
 .footer_logo-text { font-size: .75rem; font-weight: 600; }
 .footer_logo-text.is-small { opacity: .7; font-family: var(--_fonts---fantasy); letter-spacing: .2em; text-transform: uppercase; font-size: .6rem; font-weight: 400; }
@@ -597,7 +597,7 @@
 .footer_features-list { grid-column-gap: .25rem; grid-row-gap: .25rem; font-family: var(--_fonts---fantasy); letter-spacing: .2em; text-transform: uppercase; flex-flow: column; justify-content: flex-start; align-items: flex-start; font-size: .6rem; display: flex; }
 .footer_features-item { grid-column-gap: 1rem; grid-row-gap: 1rem; font-family: var(--_fonts---fantasy); letter-spacing: .2em; text-transform: uppercase; flex-flow: row; justify-content: flex-start; align-items: flex-start; font-size: .6rem; display: flex; }
 .footer_menu-list { grid-column-gap: 0rem; grid-row-gap: 0rem; flex-flow: column; flex: 1; align-items: flex-start; display: flex; }
-.footer_link { font-family: var(--_fonts---fantasy); letter-spacing: .2em; text-transform: uppercase; color: var(--navbar--text-color); justify-content: center; align-items: center; padding: .75rem 0; font-size: .75rem; font-weight: 500; text-decoration: none; transition: background-color .35s ease; display: block; position: relative; }
+.footer_link { font-family: var(--_fonts---fantasy); letter-spacing: .2em; text-transform: uppercase; color: inherit; justify-content: center; align-items: center; padding: .75rem 0; font-size: .75rem; font-weight: 500; text-decoration: none; transition: background-color .35s ease; display: block; position: relative; }
 
 /* Footer responsive */
 @media screen and (max-width: 991px) {
