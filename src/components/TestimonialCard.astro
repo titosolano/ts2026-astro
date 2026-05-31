@@ -1,0 +1,30 @@
+---
+interface Props {
+  quote: string
+  name: string
+  title: string
+  photo: string
+  photoAlt: string
+}
+const { quote, name, title, photo, photoAlt } = Astro.props
+---
+
+<div class="testimonial-card_component">
+  <div class="testimonial-card_main-wrapper">
+    <div class="testimonial-card_content-top">
+      <img loading="lazy" src="/images/quote.svg" alt="" class="icon-1x1-small" />
+      <div class="spacer-small"></div>
+      <div>{quote}</div>
+    </div>
+    <div class="spacer-small"></div>
+    <div class="testimonial-card_client">
+      <div class="testimonial-card_client-image-wrapper">
+        <img loading="lazy" src={photo} alt={photoAlt} class="testimonial-card_client-image" />
+      </div>
+      <div class="testimonial-card_client-info">
+        <div class="testimonial-card_person-name">{name}</div>
+        <div class="testimonial-card_person-title">{title}</div>
+      </div>
+    </div>
+  </div>
+</div>

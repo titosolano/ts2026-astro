@@ -1,0 +1,36 @@
+---
+interface Props {
+  label?: string
+  href?: string
+}
+const {
+  label = 'Book a Call',
+  href = 'https://calendar.app.google/rPFNct2B1jgaPacv5',
+} = Astro.props
+---
+
+<div class="button-call_component">
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="button-call_main-wrapper w-inline-block button-01_main-wrapper"
+  >
+    <div class="button-call_image-position">
+      <div class="button-call_image-wrapper">
+        <img
+          loading="lazy"
+          src="/images/profile-picture_1profile-picture.avif"
+          alt="Portrait of Tito Solano"
+          class="button-call_image"
+        />
+      </div>
+      <div class="button-call_active-dot">
+        <div class="green-light"></div>
+      </div>
+    </div>
+    <div class="button-call_text-wrapper">
+      <div>{label}</div>
+    </div>
+  </a>
+</div>

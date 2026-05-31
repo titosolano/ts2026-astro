@@ -1,0 +1,112 @@
+---
+import NavClock from './NavClock.tsx'
+import ButtonArrow from './ButtonArrow.astro'
+---
+
+<div navbar-state="on-top" navbar-transparent="true" navbar-sticky="true" navbar="navbar" class="navbar_component">
+  <div data-collapse="medium" role="banner" class="navbar_navbar w-nav">
+    <div class="line_component horizontal-bottom">
+      <div class="line_line-temp horizontal-bottom-2"></div>
+    </div>
+
+    <div class="navbar_container">
+      <!-- Logo -->
+      <div class="navbar_left-content">
+        <a href="/" class="navbar_logo-link w-nav-brand">
+          <div class="navbar_logo-text is-small">You're visiting</div>
+          <div class="navbar_logo-text">titosolano.com</div>
+        </a>
+      </div>
+
+      <!-- Desktop menu -->
+      <nav role="navigation" class="navbar_menu w-nav-menu">
+        <div class="navbar_menu-align-group">
+          <div class="navbar_menu-links">
+            {[
+              { href: '#work',         label: 'Work' },
+              { href: '#approach',     label: 'Approach' },
+              { href: '#capabilities', label: 'Capabilities' },
+              { href: '#about',        label: 'About' },
+            ].map(({ href, label }) => (
+              <a href={href} class="navbar_link w-inline-block">
+                <div>{label}</div>
+              </a>
+            ))}
+          </div>
+
+          <div class="navbar_menu-buttons">
+            <div class="navbar_features-list">
+              <div>Costa Rica</div>
+              <NavClock client:load />
+              <div class="navbar_available-tag">
+                <div class="navbar_available-dot">
+                  <div class="green-light"></div>
+                </div>
+                <div>Available q3 2026</div>
+              </div>
+            </div>
+            <ButtonArrow
+              href="mailto:info@titosolano.com?subject=titosolano.com"
+              label="contact"
+              variant="navbar"
+            />
+          </div>
+        </div>
+      </nav>
+
+      <!-- Hamburger (mobile) -->
+      <div navbar-trigger="" class="navbar_menu-button w-nav-button" aria-label="Open menu">
+        <div class="menu-icon">
+          <div class="menu-icon_line-top"></div>
+          <div class="menu-icon_line-middle">
+            <div class="menu-icon_line-middle-inner"></div>
+          </div>
+          <div class="menu-icon_line-bottom"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const navbar = document.querySelector<HTMLElement>('.w-nav')
+    if (!navbar) return
+
+    let lastY = window.scrollY
+
+    function showNav() {
+      navbar!.style.opacity = '1'
+      navbar!.style.transform = 'translateY(0)'
+    }
+    function hideNav() {
+      navbar!.style.opacity = '0'
+      navbar!.style.transform = 'translateY(-120%)'
+    }
+
+    navbar.style.transition = 'opacity 0.35s ease, transform 0.35s ease'
+
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY
+      if (y <= 10) { showNav(); lastY = y; return }
+      if (y > lastY && y > 100) hideNav()
+      else if (y < lastY) showNav()
+      lastY = y
+    }, { passive: true })
+
+    // Hamburger toggle
+    const trigger = document.querySelector('[navbar-trigger]')
+    const menu = document.querySelector<HTMLElement>('.w-nav-menu')
+    trigger?.addEventListener('click', () => {
+      const open = menu?.classList.toggle('is-open')
+      trigger.classList.toggle('w--open', !!open)
+    })
+  })
+</script>
+
+<style>
+  .w-nav-menu.is-open {
+    display: flex;
+    flex-direction: column;
+  }
+</style>

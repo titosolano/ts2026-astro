@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+/* ── Fonts ── */
+@font-face {
+  font-family: 'Arimo';
+  src: url('/fonts/Arimo.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Space Mono';
+  src: url('/fonts/Space-Mono.woff2') format('woff2');
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+/* ── Design tokens (extracted from ts2026.webflow.css) ── */
+@theme {
+  --font-sans: 'Arimo', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+
+  /* Colors — update once Sanity project is live */
+  --color-background: #0d0d0d;
+  --color-surface: #1a1a1a;
+  --color-border: #2a2a2a;
+  --color-text-primary: #f0f0f0;
+  --color-text-secondary: #888888;
+  --color-accent: #e8e0d0;
+
+  /* Spacing scale */
+  --spacing-section-small: 4rem;
+  --spacing-section-medium: 6rem;
+  --spacing-section-large: 10rem;
+}
+
+/* ── Base ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-sans);
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}

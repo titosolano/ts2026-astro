@@ -1,0 +1,89 @@
+---
+import ButtonCall from './ButtonCall.astro'
+import NavClock from './NavClock.tsx'
+
+const year = new Date().getFullYear()
+
+const navLinks = [
+  { href: '#work',         label: 'Work' },
+  { href: '#approach',     label: 'Approach' },
+  { href: '#capabilities', label: 'Capabilities' },
+  { href: '#about',        label: 'About' },
+]
+---
+
+<footer class="footer4_component">
+  <div class="footer_content">
+    <div class="padding-global">
+      <div class="container-large">
+        <div class="footer4_wrapper">
+
+          <div class="footer4_top-wrapper">
+
+            <!-- Col 1: Logo + info -->
+            <div class="footer4_group is-first">
+              <div class="footer_logo-link">
+                <div class="footer_logo-text is-small">Thanks for visiting</div>
+                <div class="footer_logo-text">titosolano.com</div>
+              </div>
+              <div class="spacer-medium"></div>
+              <h2 class="footer_heading">Designing systems.<br />Building Experiences.</h2>
+              <div class="spacer-medium"></div>
+              <div class="footer_features-list">
+                <div class="footer_features-item">
+                  <div>Costa Rica</div>
+                  <NavClock client:load />
+                </div>
+                <div class="footer_available-tag">
+                  <div class="navbar_available-dot">
+                    <div class="green-light"></div>
+                  </div>
+                  <div>Available q3 2026</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Col 2: Navigation -->
+            <div class="footer4_group">
+              <h3 class="use-case-template_label">Navigation</h3>
+              <div class="spacer-medium"></div>
+              <div class="footer_menu-list">
+                {navLinks.map(({ href, label }) => (
+                  <a href={href} class="footer_link w-inline-block">
+                    <div>{label}</div>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <!-- Col 3: Get in touch -->
+            <div class="footer4_group is-last">
+              <h3 class="use-case-template_label">Get in touch</h3>
+              <div class="spacer-medium"></div>
+              <p>
+                "From early ideas to fully realized products, I enjoy collaborating with teams that
+                care about quality, clarity, and building things the right way. Let's create
+                something great together."
+              </p>
+              <div class="spacer-medium"></div>
+              <div class="button-group">
+                <ButtonCall />
+              </div>
+            </div>
+
+          </div>
+
+          <div class="footer4_bottom-wrapper">
+            <div class="footer4_credit-text">
+              [© {year} Tito Solano. All rights reserved.]
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer_background">
+    <div class="footer_overlay"></div>
+  </div>
+</footer>

@@ -1,0 +1,38 @@
+---
+/* Prev/Next buttons — vertical-square variant from Webflow slider-controls */
+const VARIANT = 'w-variant-8875b4b4-bd89-c661-cc80-1858cae07d96'
+
+const ArrowSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 7 14" fill="none" aria-hidden="true">
+  <path d="M0.613281 0.61377L6.34059 6.75017L0.613281 12.8866" stroke="currentColor" stroke-width="1.22728" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`
+---
+
+<div class={`slider-controls_component ${VARIANT}`}>
+  <div class={`slider-buttons_component ${VARIANT}`}>
+
+    <button class={`slider-buttons_button ${VARIANT} swiper-prev`} aria-label="Previous slide">
+      <div class="slider-buttons_arrow-wrapper is-left">
+        <div class="slider-buttons_arrow-position">
+          <div class="slider-buttons_icon-svg" set:html={ArrowSVG} />
+        </div>
+        <div class="slider-buttons_arrow-position">
+          <div class="slider-buttons_icon-svg" set:html={ArrowSVG} />
+        </div>
+      </div>
+    </button>
+
+    <div class={`slider-buttons_spacer ${VARIANT}`}></div>
+
+    <button class={`slider-buttons_button ${VARIANT} swiper-next`} aria-label="Next slide">
+      <div class="slider-buttons_arrow-wrapper">
+        <div class="slider-buttons_arrow-position">
+          <div class="slider-buttons_icon-svg" set:html={ArrowSVG} />
+        </div>
+        <div class="slider-buttons_arrow-position">
+          <div class="slider-buttons_icon-svg" set:html={ArrowSVG} />
+        </div>
+      </div>
+    </button>
+
+  </div>
+</div>

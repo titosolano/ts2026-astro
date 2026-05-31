@@ -1,0 +1,178 @@
+---
+import { client, urlFor } from '../lib/sanity'
+import ButtonArrow from './ButtonArrow.astro'
+import ButtonCall from './ButtonCall.astro'
+import TestimonialSlider from './TestimonialSlider.tsx'
+import type { Testimonial } from './TestimonialSlider.tsx'
+
+const FALLBACK_TESTIMONIALS: Testimonial[] = [
+  {
+    quote: '"Tito consistently delivers polished, high-quality Webflow builds on tight turnarounds with sharp communication throughout. Hasn\'t missed once. He\'s the first person I call."',
+    name: 'Yonnas Tesfamariam',
+    title: 'Senior Partner Solutions Engineer, Webflow',
+    photo: '/images/yonnas-profile---Yonnas-Tesfamariam.avif',
+    photoAlt: 'Smiling bald man with trimmed beard wearing a black sweater.',
+  },
+  {
+    quote: '"Tito communicates clearly, works with real autonomy, and brings design sensibility to his technical decisions. I\'d recommend Tito without reservation."',
+    name: 'Brenda Sanderson',
+    title: 'Executive Director, Interaction Design Association (2012–2023)',
+    photo: '/images/2023_Headshot---Brenda-Sanderson.avif',
+    photoAlt: 'Smiling woman with short gray hair and glasses.',
+  },
+  {
+    quote: '"Tito was able to turn a clear product vision into a fast, reliable, and well-structured build. He often came up with smart, pragmatic solutions that respected both design and performance constraints."',
+    name: 'Ulys Bourassa Cousin',
+    title: 'Head of Design, Frontleap',
+    photo: '/images/ulys.avif',
+    photoAlt: 'Smiling man with dark hair tied back and full beard.',
+  },
+  {
+    quote: '"Trabajar con Tito ha sido excelente. Siempre responde rápido, brinda un servicio muy profesional y se nota el cuidado y detalle que pone en cada proyecto."',
+    name: 'Natalia Chavarría',
+    title: 'Marketing Manager, Grupo ANC',
+    photo: '/images/natalia.avif',
+    photoAlt: 'Smiling woman with long curly dark hair outdoors.',
+  },
+]
+
+let testimonials: Testimonial[] = FALLBACK_TESTIMONIALS
+
+try {
+  const data = await client.fetch(`
+    *[_type == "testimonial"] | order(order asc) {
+      quote,
+      "name": authorName,
+      "title": authorRole + ", " + authorCompany,
+      "photo": authorPhoto.asset->url,
+      "photoAlt": authorName
+    }
+  `)
+  if (data?.length) testimonials = data
+} catch {
+  // Sanity not configured yet — fallback data is used
+}
+---
+
+<header class="section_header-home">
+  <div class="header-home_component">
+    <div class="header-home_main">
+
+      <!-- Top content: headline + buttons -->
+      <div class="header-home_top-content">
+        <div class="padding-global">
+          <div class="container-wrapper">
+            <div class="container-large">
+              <div class="header-home_content">
+                <div class="header-home_text-wrapper">
+
+                  <div class="header-home_heading-wrapper">
+                    <h1 class="header-home_heading">Digital <br>systems <br>designer</h1>
+                    <h2 class="header-home_heading is-secondary">Focused on <br>High-End Web <br>Experiences</h2>
+                  </div>
+
+                  <div class="spacer-small"></div>
+
+                  <div class="max-width-medium">
+                    <p>I structure and build digital experiences where design, logic, and execution align.</p>
+                  </div>
+
+                  <div class="spacer-medium"></div>
+
+                  <div class="button-group">
+                    <ButtonArrow href="#work" label="View selected work" />
+                    <ButtonCall />
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- Scroll CTA -->
+            <div class="header-home_scroll-cta-position">
+              <div class="header-home_scroll-cta-wrapper">
+                <div class="text-style-muted">+ Scroll to explore</div>
+                <div class="scroll-line_component">
+                  <div class="scroll-line_line">
+                    <div class="green-light"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom bar: pillars -->
+      <div class="header-home_bottom-bar">
+        <div class="padding-global">
+          <div class="container-xlarge">
+            <div class="header-home_bottom-main-wrapper">
+              <div class="header-home_bottom-left-list">
+                <div>System thinking</div>
+                <div class="dot_component"><div class="green-light"></div></div>
+                <div>Design intelligence</div>
+                <div class="dot_component"><div class="green-light"></div></div>
+                <div>Execution focus</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Background image + portrait -->
+      <div class="header-home_background-image-wrapper">
+        <img
+          width="1672"
+          height="941"
+          alt="Modern concrete interior with angular walls illuminated by a bright yellow light strip."
+          src="/images/edited-1.avif"
+          loading="eager"
+          fetchpriority="high"
+          class="header-home_background-image"
+        />
+        <div class="header-home_artist-image-wrapper">
+          <div class="header-home_background-overlay"></div>
+          <img
+            src="/images/test-photo-v3_1test-photo-v3.avif"
+            loading="eager"
+            width="1134"
+            height="1256"
+            alt="Black and white profile of Tito Solano."
+            fetchpriority="high"
+            class="header-home_artist-photo"
+          />
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Testimonial slider — data from Sanity, fallback to static -->
+    <div class="header-home_testimonial-space">
+      <div class="padding-global">
+        <div class="container-large">
+          <div class="header-home_testimonial-container">
+            <div class="header-home_testimonial-position">
+              <TestimonialSlider client:load testimonials={testimonials} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<style>
+  .scroll-line_line {
+    transform-origin: right;
+    animation: scrollLineReverse 3.5s ease-in-out infinite;
+  }
+  @keyframes scrollLineReverse {
+    0%   { transform: scaleX(0); transform-origin: right; }
+    50%  { transform: scaleX(1); transform-origin: right; }
+    51%  { transform-origin: left; }
+    100% { transform: scaleX(0); transform-origin: left; }
+  }
+</style>
