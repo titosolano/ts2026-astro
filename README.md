@@ -9,7 +9,7 @@ Portfolio personal de Tito Solano. Migrado desde Webflow a un stack propio con C
 | Frontend | Astro 6 + TypeScript |
 | Estilos | Tailwind v4 + CSS portado de Webflow (Client-First) |
 | Componentes interactivos | React (solo donde hay estado) |
-| CMS | Sanity (studio en `/ts2026-sanity`) |
+| CMS | Sanity v5 — studio en `titosolano.sanity.studio` |
 | Deploy | Vercel — auto-deploy en cada push a `main` |
 
 ## Comandos
@@ -41,6 +41,8 @@ SANITY_API_TOKEN=tu_token
 ```
 
 En Vercel estas mismas variables se agregan en **Settings → Environment Variables**.
+
+> `.env` está en `.gitignore` — nunca sube a GitHub. Solo `.env.example` está versionado.
 
 ## Estructura del proyecto
 
@@ -87,9 +89,9 @@ No usar sufijos numéricos de Webflow (`navbar1_`, `header5_`, `testimonial39_`)
 
 ## Secciones completadas
 
-- Nav
+- Nav (reloj en vivo, scroll-hide, hamburger mobile)
 - Hero (testimonios conectados a Sanity, fallback estático si no hay datos)
-- Footer
+- Footer (ButtonCall, NavClock, nav links)
 
 ## Secciones pendientes
 
@@ -97,18 +99,26 @@ No usar sufijos numéricos de Webflow (`navbar1_`, `header5_`, `testimonial39_`)
 - Approach — estática
 - Capabilities — estática
 - About — estática
-- FAQ — acordeón
+- FAQ — acordeón con `interpolate-size`
 - News — posts desde Sanity (`post` schema)
 - Páginas dinámicas: `projects/[slug].astro`, `posts/[slug].astro`
 
-## Sanity
+## Sanity CMS
 
-El studio está en `/ts2026-sanity`. Schemas disponibles: `project`, `testimonial`, `post`.
+- Studio en producción: [titosolano.sanity.studio](https://titosolano.sanity.studio)
+- Studio local: `cd ../ts2026-sanity && npm run dev`
+- Schemas disponibles: `project`, `testimonial`, `post`
+- Webhook configurado: al guardar contenido en el studio, Vercel redeploya automáticamente
 
-Para correr el studio localmente:
+### Agregar contenido
+
+1. Entrá a [titosolano.sanity.studio](https://titosolano.sanity.studio)
+2. Creá o editá documentos
+3. Guardá — el webhook dispara un redeploy automático en Vercel (~1 min)
+
+### Re-deployar el studio
+
 ```bash
 cd ../ts2026-sanity
-npm run dev
+npx sanity deploy
 ```
-
-El studio aún no está desplegado en sanity.io — los datos de testimonios usan fallback estático hasta que se carguen datos reales.
