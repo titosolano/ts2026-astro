@@ -1,43 +1,114 @@
-# Astro Starter Kit: Minimal
+# ts2026 — titosolano.com
 
-```sh
-npm create astro@latest -- --template minimal
+Portfolio personal de Tito Solano. Migrado desde Webflow a un stack propio con CMS headless.
+
+## Tech stack
+
+| Capa | Tecnología |
+|---|---|
+| Frontend | Astro 6 + TypeScript |
+| Estilos | Tailwind v4 + CSS portado de Webflow (Client-First) |
+| Componentes interactivos | React (solo donde hay estado) |
+| CMS | Sanity (studio en `/ts2026-sanity`) |
+| Deploy | Vercel — auto-deploy en cada push a `main` |
+
+## Comandos
+
+```bash
+# Instalar dependencias
+npm install
+
+# Dev server (localhost:4321)
+npm run dev
+
+# Verificar build antes de push
+npm run build
+
+# Publicar
+git add .
+git commit -m "feat: descripción"
+git push
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Variables de entorno
 
-## 🚀 Project Structure
+Crea un archivo `.env` en la raíz con:
 
-Inside of your Astro project, you'll see the following folders and files:
+```
+PUBLIC_SANITY_PROJECT_ID=3i6bh3hq
+PUBLIC_SANITY_DATASET=production
+SANITY_API_TOKEN=tu_token
+```
 
-```text
-/
+En Vercel estas mismas variables se agregan en **Settings → Environment Variables**.
+
+## Estructura del proyecto
+
+```
+ts2026-astro/
 ├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── fonts/          Arimo, Space Mono
+│   ├── images/         Assets estáticos
+│   └── ts2026.css      CSS portado de Webflow (no modificar directamente)
+└── src/
+    ├── components/
+    │   ├── Nav.astro              Navbar con reloj, scroll-hide, hamburger
+    │   ├── Hero.astro             Header con testimonios desde Sanity
+    │   ├── Footer.astro           Footer global
+    │   ├── ButtonArrow.astro      Botón reutilizable con flecha
+    │   ├── ButtonCall.astro       Botón "Book a Call" con foto
+    │   ├── SectionHeader.astro    Header de sección (Work, Approach, etc.)
+    │   ├── SliderControls.astro   Prev/Next para cualquier slider
+    │   ├── TestimonialCard.astro  Tarjeta de testimonio individual
+    │   ├── TestimonialSlider.tsx  Slider Swiper (React, datos desde Sanity)
+    │   └── NavClock.tsx           Reloj en vivo zona Costa Rica (React)
+    ├── layouts/
+    │   └── BaseLayout.astro       Layout base con SEO, fonts, CSS global
+    ├── lib/
+    │   └── sanity.ts              Cliente Sanity + urlFor()
+    ├── pages/
+    │   └── index.astro            Página principal
+    └── styles/
+        └── global.css             Tokens de diseño + @font-face
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Convención de nombres (Client-First)
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Todos los componentes siguen Client-First. El bloque `_component` dicta el prefijo de todos sus hijos:
 
-Any static assets, like images, can be placed in the `public/` directory.
+```
+navbar_component
+  navbar_container
+  navbar_menu
+  navbar_link
+```
 
-## 🧞 Commands
+No usar sufijos numéricos de Webflow (`navbar1_`, `header5_`, `testimonial39_`).
 
-All commands are run from the root of the project, from a terminal:
+## Secciones completadas
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+- Nav
+- Hero (testimonios conectados a Sanity, fallback estático si no hay datos)
+- Footer
 
-## 👀 Want to learn more?
+## Secciones pendientes
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- Work — proyectos desde Sanity (`project` schema)
+- Approach — estática
+- Capabilities — estática
+- About — estática
+- FAQ — acordeón
+- News — posts desde Sanity (`post` schema)
+- Páginas dinámicas: `projects/[slug].astro`, `posts/[slug].astro`
+
+## Sanity
+
+El studio está en `/ts2026-sanity`. Schemas disponibles: `project`, `testimonial`, `post`.
+
+Para correr el studio localmente:
+```bash
+cd ../ts2026-sanity
+npm run dev
+```
+
+El studio aún no está desplegado en sanity.io — los datos de testimonios usan fallback estático hasta que se carguen datos reales.
