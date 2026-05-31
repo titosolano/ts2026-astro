@@ -180,7 +180,7 @@ try {
       "approach": pt::text(approach),
       keyFeatures,
       "coverImage": coverImage.asset->url,
-      "coverImageAlt": title,
+      "coverImageAlt": coalesce(coverImageAlt, title),
     }
   `)
   if (data?.length) projects = data

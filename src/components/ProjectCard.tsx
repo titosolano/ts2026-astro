@@ -17,7 +17,6 @@ export interface Project {
 
 interface Props {
   project: Project
-  asSlide?: boolean
 }
 
 const ExternalIcon = () => (
@@ -26,12 +25,9 @@ const ExternalIcon = () => (
   </svg>
 )
 
-export default function ProjectCard({ project, asSlide = false }: Props) {
-  const outerClass = ['use-case-template_component', asSlide && 'swiper-slide']
-    .filter(Boolean).join(' ')
-
+export default function ProjectCard({ project }: Props) {
   return (
-    <div className={outerClass}>
+    <div className="use-case-template_component">
       <div className="padding-global">
         <div className="container-large">
           <div className="padding-section-small">
