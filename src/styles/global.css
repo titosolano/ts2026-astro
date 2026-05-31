@@ -53,3 +53,33 @@ video {
   max-width: 100%;
   height: auto;
 }
+
+/* ── Fluid typography ── */
+html { font-size: calc(0.625rem + 0.41666666666666663vw); }
+@media screen and (max-width: 1920px) { html { font-size: calc(0.625rem + 0.41666666666666674vw); } }
+@media screen and (max-width: 1440px) { html { font-size: calc(0.8126951092611863rem + 0.20811654526534862vw); } }
+@media screen and (max-width: 479px)  { html { font-size: calc(0.7494769874476988rem + 0.8368200836820083vw); } }
+
+/* ── Brand selection color ── */
+::selection {
+  background-color: #7bfb1a;
+  color: #000;
+}
+
+/* ── Responsive visibility ── */
+.hide { display: none !important; }
+@media screen and (max-width: 991px) { .hide, .hide-tablet { display: none !important; } }
+@media screen and (max-width: 767px) { .hide-mobile-landscape { display: none !important; } }
+@media screen and (max-width: 479px) { .hide-mobile { display: none !important; } }
+
+/* ── Card link overlay (used in project cards) ── */
+.card-link-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  cursor: pointer;
+}
+
+/* ── FAQ / accordion smooth height animation ── */
+:root { interpolate-size: allow-keywords; }
