@@ -27,8 +27,7 @@ const ExternalIcon = () => (
 
 export default function ProjectCard({ project }: Props) {
   return (
-    <div className="use-case-template_component">
-      <div className="padding-global">
+    <div className="padding-global">
         <div className="container-large">
           <div className="padding-section-small">
 
@@ -178,6 +177,5 @@ export default function ProjectCard({ project }: Props) {
 
         </div>
       </div>
-    </div>
   )
 }
