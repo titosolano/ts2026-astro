@@ -1,0 +1,123 @@
+---
+const stats = [
+  { number: '10+', label: 'Years', body: 'Building digital experiences' },
+  { number: '200+', label: 'Projects', body: 'Across multiple industries' },
+  { number: 'Global Reach', label: 'Collaborating across industries and international markets', body: '' },
+]
+---
+
+<section id="about" class="section_layout7">
+  <div class="about-grid_component">
+
+    <div class="about-grid_top-content">
+      <div class="padding-global">
+        <div class="container-large">
+          <div class="about-grid_content">
+
+            <!-- Left: bio -->
+            <div class="about-grid_content-left">
+              <div class="about-grid_content-left-top">
+                <div class="about-grid_item-content">
+
+                  <h2 class="heading-tag_component" data-anim="blur-fade">
+                    <div class="heading-tag_wrapper">
+                      <img loading="lazy" src="/images/dots-icon.svg" alt="" class="heading-tag_icon" />
+                      <div class="text-color-green">About</div>
+                    </div>
+                  </h2>
+
+                  <div class="spacer-small"></div>
+
+                  <div class="text-style-balance" data-anim="blur-fade" data-anim-delay="0.1">
+                    <h2 class="heading-style-h3">Designing systems with clarity, structure, and Intent.</h2>
+                  </div>
+
+                  <div class="spacer-small"></div>
+
+                  <div class="max-width-medium" data-anim="blur-fade" data-anim-delay="0.3">
+                    <p class="text-size-regular">My background started in branding, visual design, and UI/UX, evolving naturally into a more technical and systems-driven practice focused on building refined digital experiences with precision and scalability.</p>
+                    <br />
+                    <p class="text-size-regular">Over the years, I've worked with companies across different industries, helping translate ambitious ideas into digital products that are visually strong, technically reliable, and carefully executed. Understanding the business context, user needs, and long-term structure behind a project has always been a fundamental part of how I work. Webflow became a key part of that evolution more than a decade ago, not simply as a development tool, but as a platform that allows design, logic, and execution to move together with speed and creative freedom.</p>
+                    <br />
+                    <p class="text-size-regular">Combined with custom development, interaction systems, integrations, and automation workflows, it has enabled me to build experiences that go far beyond traditional websites. My work sits between design sensitivity and technical execution, motion, performance, automation, and modern development workflows to create digital systems that are scalable, maintainable, and built with intention.</p>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- Right -->
+            <div class="about-grid_right-side">
+
+              <!-- Top row: stats | empty spacer -->
+              <div class="about-grid_right-top">
+                <div class="about-grid_stats-wrapper">
+                  {stats.map(({ number, label, body }, i) => (
+                    <div class="about-grid_item" data-anim="fade" data-anim-delay={String(i * 0.08)}>
+                      <div class="about-grid_stat-number">{number}</div>
+                      <div class="about-grid_item-text-wrapper">
+                        <h3 class="heading-style-label">{label}</h3>
+                        {body && <><div class="spacer-xsmall"></div><p>{body}</p></>}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <!-- Intentional empty spacer — aligns portrait below stats -->
+                <div class="about-grid_phrase-right"></div>
+              </div>
+
+              <!-- Bottom row: portrait | quote -->
+              <div class="about-grid_right">
+
+                <div class="about-grid_right-left-wrapper">
+                  <div class="layout-grid_image-wrapper">
+                    <img
+                      src="/images/test-photo-v3_1test-photo-v3.avif"
+                      loading="lazy"
+                      width="600"
+                      height="600"
+                      alt="Black and white profile of a bald man with a mustache wearing a high-collared shirt."
+                      class="layout7_profile-image"
+                      data-anim="blur-fade"
+                      data-anim-start="top 90%"
+                    />
+                  </div>
+                </div>
+
+                <div class="about-grid_phrase-right is-phrase">
+                  <div class="about-grid_phrase-wrapper">
+                    <div class="about-grid_main-wrapper">
+                      <div class="about-grid_content-top" data-anim="blur-fade" data-anim-start="top 98%">
+                        <img src="/images/quote.svg" loading="lazy" width="70" height="56" alt="" class="icon-1x1-small" />
+                        <div class="spacer-small"></div>
+                        <div>"Good digital experiences are not only designed visually, they are structured, connected, and carefully built from the inside out."</div>
+                      </div>
+                      <div class="spacer-small"></div>
+                      <div class="about-grid_name-wrapper">
+                        <div class="about-grid_name-list" data-anim="blur-fade" data-anim-start="top 98%">
+                          <div class="about-grid_person-name">Tito Solano</div>
+                          <div class="about-grid_person-title">Digital systems designer</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="about-grid_phrase-line"></div>
+                    <div class="about-grid_phrase-line is-right"></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Background image -->
+    <div class="about-grid_background">
+      <img src="/images/bakground-about.avif" loading="lazy" alt="" class="about-grid_background-image" />
+      <div class="about-grid_background-overlay"></div>
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,136 @@
+---
+import SectionHeaderImage from './SectionHeaderImage.astro'
+import ButtonCall from './ButtonCall.astro'
+
+const steps = [
+  {
+    icon: '/images/frame.svg',
+    label: 'Understand the Problem',
+    body: 'Every project starts by understanding the full context: business goals, user needs, brand direction, design intent, technical constraints, and long-term vision.\n\nThe right solution starts with understanding what needs to work, for whom, and why.',
+  },
+  {
+    icon: '/images/system.svg',
+    label: 'Define the System',
+    body: 'I define the structure, process, tools, and technical direction needed to turn the idea into a clear and sustainable digital solution. This includes experience structure, design workflow, functionality, CMS logic, integrations, automation, and the right stack for the project.\n\nThe goal is to choose what is simple, scalable, usable, and easy to maintain.',
+  },
+  {
+    icon: '/images/precision.svg',
+    label: 'Build with Precision',
+    body: 'I develop with attention to detail, performance, responsiveness, interaction, and maintainability, making sure the final experience preserves the design intent and works cleanly across real use cases.\n\nExecution should feel refined, stable, and carefully crafted.',
+  },
+  {
+    icon: '/images/iterate.svg',
+    label: 'Iterate & Improve',
+    body: 'Digital experiences evolve. I refine systems, improve workflows, optimize interactions, and adapt solutions based on feedback, usage, and future needs.\n\nGood systems are designed to grow without becoming difficult to manage.',
+  },
+]
+
+const principles = [
+  'Clarity through structure.',
+  'Consistency creates scalability.',
+  'Design should support function.',
+  'Build for evolution, not short-term fixes.',
+  'Execution is part of the design process.',
+  'Simplicity is achieved through refinement.',
+  'Every detail should serve a purpose.',
+]
+
+const expectations = [
+  'Design aligned with technical execution',
+  'Structured thinking from day one',
+  'Clear and intentional decision-making',
+  'Attention to detail across the entire experience',
+  'Reliable communication and collaboration',
+  'Focus on clarity, usability, and performance',
+]
+---
+
+<section id="approach" class="section_approach">
+  <div class="process_component">
+
+    <SectionHeaderImage
+      label="Approach"
+      subtitle="Understand first. Define with intent. Build systems that scale."
+      description="Every project starts by understanding the full context: business goals, user needs, design direction, technical requirements, and long-term vision. From there, I define the right structure, tools, and workflow to create digital experiences that are clear, usable, maintainable, and built with precision."
+      backgroundImage="/images/background-sections.avif"
+    />
+
+    <div class="padding-global">
+      <div class="container-large">
+        <div class="padding-section-small">
+          <div class="process_mid-content">
+
+            <!-- Row 1: 4 process steps -->
+            <div class="process_list">
+              {steps.map(({ icon, label, body }, i) => (
+                <div class="process_group">
+                  <div class="process_group-content"
+                    data-anim="blur-fade"
+                    data-anim-delay={String(i * 0.08)}
+                  >
+                    <img src={icon} loading="lazy" alt="" class="icon-embed-xsmall" />
+                    <div class="spacer-small"></div>
+                    <h3 class="heading-style-label">{label}</h3>
+                    <div class="spacer-xsmall"></div>
+                    {body.split('\n\n').map((para) => <p>{para}</p>)}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div class="process_spacer"></div>
+
+            <!-- Row 2: Principles / How I work / Expectations -->
+            <div class="process_list is-3">
+              <!-- Guiding Principles -->
+              <div class="process_group">
+                <div class="process_group-content"
+                  data-anim="blur-fade"
+                >
+                  <h3 class="heading-style-label">Guiding Principles</h3>
+                  <div class="spacer-small"></div>
+                  <ul class="dots-list-text" role="list">
+                    {principles.map((p) => <li>{p}</li>)}
+                  </ul>
+                </div>
+              </div>
+
+              <!-- How I work -->
+              <div class="process_group">
+                <div class="process_group-content"
+                  data-anim="blur-fade"
+                  data-anim-delay="0.08"
+                >
+                  <h3 class="heading-style-label">How I Work</h3>
+                  <div class="spacer-small"></div>
+                  <p>"My process combines design sensitivity, technical thinking, and practical decision-making to build digital experiences that are scalable, maintainable, and carefully implemented."</p>
+                  <div class="spacer-small"></div>
+                  <div class="button-group">
+                    <ButtonCall />
+                  </div>
+                </div>
+              </div>
+
+              <!-- What you can expect -->
+              <div class="process_group">
+                <div class="process_group-content"
+                  data-anim="blur-fade"
+                  data-anim-delay="0.16"
+                >
+                  <h3 class="heading-style-label">What You Can Expect</h3>
+                  <div class="spacer-small"></div>
+                  <ul class="dots-list-text" role="list">
+                    {expectations.map((e) => <li>{e}</li>)}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="spacer-medium"></div>
+      </div>
+    </div>
+
+  </div>
+</section>

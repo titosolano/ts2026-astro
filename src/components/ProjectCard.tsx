@@ -86,7 +86,7 @@ export default function ProjectCard({ project }: Props) {
                   {project.industry && (
                     <div className="use-case-template_feature-item">
                       <div className="use-case-template_items">
-                        <h3 className="use-case-template_label">Industry</h3>
+                        <h3 className="heading-style-label">Industry</h3>
                         <div className="spacer-xsmall" />
                         <div>{project.industry}</div>
                       </div>
@@ -95,7 +95,7 @@ export default function ProjectCard({ project }: Props) {
                   {project.year && (
                     <div className="use-case-template_feature-item">
                       <div className="use-case-template_items">
-                        <h3 className="use-case-template_label">Year</h3>
+                        <h3 className="heading-style-label">Year</h3>
                         <div className="spacer-xsmall" />
                         <div>{project.year}</div>
                       </div>
@@ -104,7 +104,7 @@ export default function ProjectCard({ project }: Props) {
                   {project.role && (
                     <div className="use-case-template_feature-item is-last">
                       <div className="use-case-template_items">
-                        <h3 className="use-case-template_label">My Role</h3>
+                        <h3 className="heading-style-label">My Role</h3>
                         <div className="spacer-xsmall" />
                         <div>{project.role}</div>
                       </div>
@@ -144,7 +144,7 @@ export default function ProjectCard({ project }: Props) {
                   {project.challenge && (
                     <div className="use-case-template_detail-item">
                       <div className="use-case-template_items">
-                        <h3 className="use-case-template_label">The Challenge</h3>
+                        <h3 className="heading-style-label">The Challenge</h3>
                         <div className="spacer-xsmall" />
                         <p>{project.challenge}</p>
                       </div>
@@ -153,7 +153,7 @@ export default function ProjectCard({ project }: Props) {
                   {project.approach && (
                     <div className="use-case-template_detail-item">
                       <div className="use-case-template_items">
-                        <h3 className="use-case-template_label">Approach &amp; Solution</h3>
+                        <h3 className="heading-style-label">Approach &amp; Solution</h3>
                         <div className="spacer-xsmall" />
                         <p>{project.approach}</p>
                       </div>
@@ -162,7 +162,7 @@ export default function ProjectCard({ project }: Props) {
                   {project.keyFeatures && project.keyFeatures.length > 0 && (
                     <div className="use-case-template_detail-item">
                       <div className="use-case-template_items">
-                        <h3 className="use-case-template_label">Key Features</h3>
+                        <h3 className="heading-style-label">Key Features</h3>
                         <div className="spacer-xsmall" />
                         <ul className="dots-list-text" role="list">
                           {project.keyFeatures.map((f) => <li key={f}>{f}</li>)}

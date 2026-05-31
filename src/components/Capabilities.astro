@@ -1,0 +1,96 @@
+---
+const items = [
+  {
+    heading: 'Design-Led Systems',
+    body: 'Use design thinking as the foundation for building clear, scalable, and cohesive digital experiences. A background in branding, UI/UX, and visual systems allows structure, usability, and execution to work together from the beginning.',
+    thumb: '[Design-Led]',
+    thumbClass: '',
+  },
+  {
+    heading: 'Precision Implementation',
+    body: 'Translate ambitious ideas into refined digital products with attention to interaction, responsiveness, performance, and detail. Execution is treated as part of the design process, not as a separate technical layer.',
+    thumb: '[Precision]',
+    thumbClass: 'is-2',
+  },
+  {
+    heading: 'Connected Workflows',
+    body: 'Build systems that extend beyond the interface through integrations, automations, APIs, and modular logic. The goal is to reduce friction, simplify operations, and create connected digital ecosystems.',
+    thumb: '[Connected Workflows]',
+    thumbClass: 'is-3',
+  },
+  {
+    heading: 'AI-Augmented Execution',
+    body: 'Use AI as a practical acceleration layer for prototyping, development, debugging, and system refinement. Combined with experience and technical judgment, it enables faster iteration without compromising quality or control.',
+    thumb: '[AI-Augmented]',
+    thumbClass: 'is-4',
+  },
+]
+---
+
+<section id="capabilities" class="section_capabilities">
+  <div class="capabilities_component">
+    <div class="padding-global">
+      <div class="container-large">
+        <div class="padding-section-medium">
+          <div class="capabilities_wrapper">
+            <div class="capabilities_list">
+
+              <!-- Sticky header -->
+              <div class="capabilities_top-wrapper">
+                <div class="capabilities_header-wrapper">
+                  <div class="capabilities_header-left">
+                    <h2
+                      class="heading-style-h1"
+                      data-anim="blur-fade"
+                    >Capabilities</h2>
+                    <div
+                      class="text-color-grey"
+                      data-anim="blur-fade"
+                      data-anim-delay="0.1"
+                    >Complex system. Clear thinking.</div>
+                  </div>
+                </div>
+                <div class="spacer-xlarge"></div>
+
+                <!-- First item inside top-wrapper -->
+                <div class="capabilities_item">
+                  <div class="capabilities_item-left-content">
+                    <h3 class="capabilities_heading"
+                      data-anim="blur-fade"
+                    >{items[0].heading}</h3>
+                  </div>
+                  <div class="capabilities_item-right-wrapper"
+                    data-anim="blur-fade"
+                    data-anim-delay="0.1"
+                  >
+                    <p>{items[0].body}</p>
+                  </div>
+                  <div class={`capabilities_item-thumb ${items[0].thumbClass}`}>{items[0].thumb}</div>
+                </div>
+              </div>
+
+              <!-- Remaining sticky items — siblings of top-wrapper -->
+              {items.slice(1).map(({ heading, body, thumb, thumbClass }) => (
+                <div class="capabilities_item">
+                  <div class="capabilities_item-left-content">
+                    <h3 class="capabilities_heading"
+                      data-anim="blur-fade"
+                    >{heading}</h3>
+                  </div>
+                  <div class="capabilities_item-right-wrapper"
+                    data-anim="blur-fade"
+                    data-anim-delay="0.1"
+                  >
+                    <p>{body}</p>
+                  </div>
+                  <div class={`capabilities_item-thumb ${thumbClass}`}>{thumb}</div>
+                </div>
+              ))}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
