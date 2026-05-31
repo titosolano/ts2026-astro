@@ -204,6 +204,45 @@ See the `animate` skill for full documentation. Summary:
 
 ---
 
+## Swiper Slider Patterns
+
+All sliders use [Swiper.js](https://swiperjs.com/) initialized inside a React `useEffect`. There are established architectural patterns and known CSS conflicts that must be respected across all slider implementations.
+
+### Component split — slider vs card
+
+Every slider is split into two files: one that handles Swiper orchestration and one that handles the card layout. The slider component is responsible for initializing Swiper, configuring breakpoints, and creating the `swiper-slide` wrappers. The card component is a pure layout component that receives a single item as a prop and has no awareness of Swiper. This separation keeps the card reusable outside of a slider context.
+
+The slide wrapper (with the `swiper-slide` class) is always created in the slider component, never inside the card. The card is mounted inside that wrapper as a child.
+
+### Swiper CSS is global
+
+`import 'swiper/css'` loads Swiper's core CSS globally, affecting every element with a `.swiper-*` class on the page — regardless of which component imported it. This means Swiper's base styles apply to all sliders simultaneously.
+
+### Never style `.swiper-*` classes
+
+`.swiper`, `.swiper-wrapper`, `.swiper-slide` and all `.swiper-*` classes are Swiper identifiers only — they must not carry visual or layout properties in our CSS. All styling belongs on the component-specific classes that sit alongside the Swiper classes on the same elements (e.g. a slide element has both `swiper-slide` and a project-specific class; all CSS targets the project-specific class only).
+
+### Swiper CSS conflicts and how to resolve them
+
+Swiper's core CSS sets properties on `.swiper-slide` and `.swiper` that can override our component styles when Swiper's stylesheet loads after ours. Since both are single-class selectors with equal specificity, source order determines which wins. The correct fix is to add `!important` to the property on our component class — never on a `.swiper-*` class.
+
+Two known conflicts in this project:
+
+- `.swiper-slide` sets `height: 100%` — this interferes with equal-height card layouts. Override with `height: auto !important` on the component's slide class.
+- `.swiper` sets `margin-right: auto` — this overrides the `-1px` right margin used to prevent double borders. Override with `margin-right: -1px !important` on the component's list wrapper class.
+
+### The -1px border collapse trick
+
+When slides have a `border-right` and the slider wrapper also has a `border-right`, the last slide and the wrapper create a visible double border. The fix is to give the inner swiper element a `margin-right: -1px`, which extends it 1px past the wrapper's inner edge. Combined with `overflow: clip` on the wrapper, that 1px is clipped and only the wrapper's border remains visible. This margin must be set with `!important` because Swiper's CSS overrides it (see above).
+
+### Equal-height cards
+
+When all cards in a slider must share the same height, the correct approach is to make the slide element a column flex container and have the card fill it with `flex: 1`. Do not use `align-items: stretch` on the swiper wrapper (a Swiper class) and do not use `height: 100%` on the card — percentage heights require a defined height on the parent, which `height: auto` does not provide.
+
+The chain that works: slide element is `display: flex; flex-direction: column` → card has `flex: 1` → card's content wrapper has `flex: 1` to push optional elements (like a link) to the bottom.
+
+---
+
 ## Working Principles
 
 1. **Always check the Webflow reference first.** Before writing HTML or CSS for a section, grep the `.webflow` files. Class names, structure, and responsive behavior are all there.
