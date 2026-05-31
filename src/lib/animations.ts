@@ -308,6 +308,16 @@ const VALID_TYPES = new Set<AnimType>([
   'slide-up', 'slide-down', 'slide-left', 'slide-right', 'fade', 'blur-fade',
 ])
 
+export function initSlideBlurScope(scope: HTMLElement): void {
+  const isDesktop = window.matchMedia(
+    '(min-width: 992px) and (hover: hover) and (pointer: fine)'
+  ).matches
+  if (!isDesktop) return
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const els = Array.from(scope.querySelectorAll<HTMLElement>('[data-anim="slide-blur"]'))
+  if (els.length) initSlideBlur(els, prefersReduced)
+}
+
 export function initAnimations(selector = '[data-anim]'): void {
   const isDesktop = window.matchMedia(
     '(min-width: 992px) and (hover: hover) and (pointer: fine)'

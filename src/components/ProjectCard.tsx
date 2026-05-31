@@ -35,7 +35,10 @@ export default function ProjectCard({ project }: Props) {
             <div className="use-case-template_top-wrapper">
               {/* Left: text content */}
               <div className="use-case-template_top-left-content">
-                <div className="use-case-template_heading-wrapper">
+                <div className="use-case-template_heading-wrapper"
+                  data-anim="slide-blur"
+                  data-anim-delay="0.1"
+                >
                   {project.featured && (
                     <div className="heading-tag_component">
                       <div className="heading-tag_wrapper">
@@ -77,7 +80,10 @@ export default function ProjectCard({ project }: Props) {
                 </div>
 
                 {/* Metadata: industry / year / role */}
-                <div className="use-case-template_features-list">
+                <div className="use-case-template_features-list"
+                  data-anim="slide-blur"
+                  data-anim-delay="0.2"
+                >
                   {project.industry && (
                     <div className="use-case-template_feature-item">
                       <div className="use-case-template_items">
@@ -109,7 +115,10 @@ export default function ProjectCard({ project }: Props) {
               </div>
 
               {/* Right: cover image */}
-              <div className="use-case-template_top-right-left-content">
+              <div className="use-case-template_top-right-left-content"
+                data-anim="slide-blur"
+                data-anim-delay="0.05"
+              >
                 <div className="use-case-template_image-wrapper">
                   {project.coverImage && (
                     <img
@@ -129,7 +138,10 @@ export default function ProjectCard({ project }: Props) {
           {(project.challenge || project.approach || (project.keyFeatures?.length ?? 0) > 0) && (
             <div className="use-case-template_mid-content">
               <div className="padding-section-small">
-                <div className="use-case-template_detail-list">
+                <div className="use-case-template_detail-list"
+                  data-anim="slide-blur"
+                  data-anim-delay="0.3"
+                >
                   {project.challenge && (
                     <div className="use-case-template_detail-item">
                       <div className="use-case-template_items">

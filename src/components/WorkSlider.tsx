@@ -6,6 +6,7 @@ import 'swiper/css/effect-fade'
 import ProjectCard from './ProjectCard'
 import type { Project } from './ProjectCard'
 import SliderButtons from './SliderButtons'
+import { initSlideBlurScope } from '../lib/animations'
 
 export type { Project }
 
@@ -54,7 +55,12 @@ export default function WorkSlider({ projects }: Props) {
         disabledClass: 'is-disabled',
       },
       on: {
-        init(s) { requestAnimationFrame(() => s.updateAutoHeight(0)) },
+        init(s) {
+          requestAnimationFrame(() => {
+            s.updateAutoHeight(0)
+            initSlideBlurScope(el.closest('.study-case-slider_component') as HTMLElement)
+          })
+        },
         slideChangeTransitionStart() { scrollToSlider() },
         slideChangeTransitionEnd(s) { s.updateAutoHeight(800) },
         resize(s) { s.updateAutoHeight(0) },
