@@ -86,3 +86,24 @@ html { font-size: calc(0.625rem + 0.41666666666666663vw); }
 /* ── FAQ / accordion smooth height animation ── */
 
 :root { interpolate-size: allow-keywords; }
+
+
+/* ── Animaciones data-anim ──
+   Los elementos con data-anim se ocultan en desktop antes de que
+   GSAP corra. En mobile/touch siempre son visibles (ver animations.ts).
+────────────────────────────────────────────────────────────── */
+
+@media screen and (min-width: 992px) and (hover: hover) and (pointer: fine) {
+  html.js [data-anim] {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Fallback: touch devices nunca quedan ocultos */
+@media screen and (hover: none), screen and (pointer: coarse) {
+  html.js [data-anim] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

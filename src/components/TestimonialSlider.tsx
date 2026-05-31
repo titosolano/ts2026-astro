@@ -1,4 +1,8 @@
 import { useEffect, useRef } from 'react'
+import Swiper from 'swiper'
+import { Navigation, Autoplay, EffectFade } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/effect-fade'
 
 export interface Testimonial {
   quote: string
@@ -12,38 +16,34 @@ interface Props {
   testimonials: Testimonial[]
 }
 
-declare const Swiper: any
-
 export default function TestimonialSlider({ testimonials }: Props) {
   const swiperRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    function init() {
-      if (typeof Swiper === 'undefined' || !swiperRef.current) {
-        setTimeout(init, 50)
-        return
-      }
-      new Swiper(swiperRef.current, {
-        speed: 800,
-        loop: true,
-        autoplay: { delay: 5000, disableOnInteraction: false },
-        effect: 'fade',
-        fadeEffect: { crossFade: true },
-        slidesPerView: 1,
-        navigation: {
-          nextEl: '.swiper-next',
-          prevEl: '.swiper-prev',
-          disabledClass: 'is-disabled',
-        },
-      })
-    }
-    init()
+    if (!swiperRef.current) return
+
+    const swiper = new Swiper(swiperRef.current, {
+      modules: [Navigation, Autoplay, EffectFade],
+      speed: 800,
+      loop: true,
+      autoplay: { delay: 5000, disableOnInteraction: false },
+      effect: 'fade',
+      fadeEffect: { crossFade: true },
+      slidesPerView: 1,
+      navigation: {
+        nextEl: '.swiper-next',
+        prevEl: '.swiper-prev',
+        disabledClass: 'is-disabled',
+      },
+    })
+
+    return () => swiper.destroy()
   }, [])
 
   return (
     <div className="testimonial-slider_component">
       <div className="testimonial-slider_slider-position">
-        <div className="testimonial-slider_list-wrapper swiper" ref={swiperRef}>
+        <div className="swiper" ref={swiperRef}>
           <div className="testimonial-slider_list swiper-wrapper">
             {testimonials.map((t) => (
               <div key={t.name} className="testimonial-slider_list-item swiper-slide">
@@ -72,7 +72,6 @@ export default function TestimonialSlider({ testimonials }: Props) {
         </div>
       </div>
 
-      {/* Prev / Next — vertical-square variant */}
       <div className="testimonial-slider_buttons-position">
         <div className="slider-controls_component w-variant-8875b4b4-bd89-c661-cc80-1858cae07d96">
           <div className="slider-buttons_component w-variant-8875b4b4-bd89-c661-cc80-1858cae07d96">

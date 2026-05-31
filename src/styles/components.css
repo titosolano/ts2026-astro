@@ -89,7 +89,8 @@
 
 /* Navbar responsive */
 @media screen and (max-width: 991px) {
-  .navbar_menu { min-height: calc(100dvh - var(--_dimensions---navbar-height)); background-color: var(--brand--white-grey); -webkit-text-fill-color: inherit; background-clip: border-box; border-bottom-style: solid; border-bottom-width: 1px; align-items: stretch; padding: 1rem 5% 2rem; display: flex; position: absolute; overflow: auto; }
+  /* posición y tamaño del panel los maneja Nav.astro con fixed + css variables */
+  .navbar_menu { background-color: var(--brand--white-grey); -webkit-text-fill-color: inherit; background-clip: border-box; border-bottom-style: solid; border-bottom-width: 1px; align-items: stretch; padding: 1rem 5% 2rem; display: flex; }
   .navbar_menu-align-group { flex-flow: column; flex: 1; height: 100%; }
   .navbar_menu-links { grid-column-gap: 0rem; grid-row-gap: 0rem; flex-flow: column; display: flex; }
   .navbar_link { justify-content: flex-start; align-items: center; width: auto; min-height: 4rem; padding-left: 0; padding-right: 0; font-size: 1.125rem; }

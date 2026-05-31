@@ -3,23 +3,25 @@ import NavClock from './NavClock.tsx'
 import ButtonArrow from './ButtonArrow.astro'
 ---
 
-<div navbar-state="on-top" navbar-transparent="true" navbar-sticky="true" navbar="navbar" class="navbar_component">
-  <div data-collapse="medium" role="banner" class="navbar_navbar w-nav">
+<div class="navbar_component">
+  <div class="navbar_navbar" id="navbar">
     <div class="line_component horizontal-bottom">
       <div class="line_line-temp horizontal-bottom-2"></div>
     </div>
 
     <div class="navbar_container">
       <!-- Logo -->
-      <div class="navbar_left-content">
-        <a href="/" class="navbar_logo-link w-nav-brand">
-          <div class="navbar_logo-text is-small">You're visiting</div>
-          <div class="navbar_logo-text">titosolano.com</div>
-        </a>
-      </div>
+      <a href="/" class="navbar_logo-link"
+        data-anim="blur-fade"
+        data-anim-trigger="load"
+        data-anim-duration="0.6"
+      >
+        <div class="navbar_logo-text is-small">You're visiting</div>
+        <div class="navbar_logo-text">titosolano.com</div>
+      </a>
 
-      <!-- Desktop menu -->
-      <nav role="navigation" class="navbar_menu w-nav-menu">
+      <!-- Menú de navegación -->
+      <nav id="navbar-menu" class="navbar_menu" aria-label="Main navigation">
         <div class="navbar_menu-align-group">
           <div class="navbar_menu-links">
             {[
@@ -27,14 +29,24 @@ import ButtonArrow from './ButtonArrow.astro'
               { href: '#approach',     label: 'Approach' },
               { href: '#capabilities', label: 'Capabilities' },
               { href: '#about',        label: 'About' },
-            ].map(({ href, label }) => (
-              <a href={href} class="navbar_link w-inline-block">
+            ].map(({ href, label }, i) => (
+              <a href={href} class="navbar_link"
+                data-anim="blur-fade"
+                data-anim-trigger="load"
+                data-anim-duration="0.6"
+                data-anim-delay={String(0.1 + i * 0.06)}
+              >
                 <div>{label}</div>
               </a>
             ))}
           </div>
 
-          <div class="navbar_menu-buttons">
+          <div class="navbar_menu-buttons"
+            data-anim="blur-fade"
+            data-anim-trigger="load"
+            data-anim-duration="0.6"
+            data-anim-delay="0.25"
+          >
             <div class="navbar_features-list">
               <div>Costa Rica</div>
               <NavClock client:load />
@@ -54,8 +66,14 @@ import ButtonArrow from './ButtonArrow.astro'
         </div>
       </nav>
 
-      <!-- Hamburger (mobile) -->
-      <div navbar-trigger="" class="navbar_menu-button w-nav-button" aria-label="Open menu">
+      <!-- Hamburger -->
+      <button
+        id="navbar-trigger"
+        class="navbar_menu-button"
+        aria-controls="navbar-menu"
+        aria-expanded="false"
+        aria-label="Abrir menú"
+      >
         <div class="menu-icon">
           <div class="menu-icon_line-top"></div>
           <div class="menu-icon_line-middle">
@@ -63,50 +81,120 @@ import ButtonArrow from './ButtonArrow.astro'
           </div>
           <div class="menu-icon_line-bottom"></div>
         </div>
-      </div>
+      </button>
     </div>
   </div>
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const navbar = document.querySelector<HTMLElement>('.w-nav')
-    if (!navbar) return
+  const navbar  = document.getElementById('navbar')
+  const trigger = document.getElementById('navbar-trigger')
+  const menu    = document.getElementById('navbar-menu')
+  if (!navbar || !trigger || !menu) throw new Error('Nav: elementos no encontrados')
 
-    let lastY = window.scrollY
+  // ── Scroll hide/show ──────────────────────────────────────────
+  let lastY = window.scrollY
 
-    function showNav() {
-      navbar!.style.opacity = '1'
-      navbar!.style.transform = 'translateY(0)'
+  navbar.style.transition = 'opacity 0.35s ease, transform 0.35s ease'
+
+  window.addEventListener('scroll', () => {
+    if (navbar.classList.contains('is-open')) return
+
+    const y = window.scrollY
+    if (y <= 10) {
+      navbar.style.opacity = '1'
+      navbar.style.transform = 'translateY(0)'
+    } else if (y > lastY && y > 100) {
+      navbar.style.opacity = '0'
+      navbar.style.transform = 'translateY(-120%)'
+    } else if (y < lastY) {
+      navbar.style.opacity = '1'
+      navbar.style.transform = 'translateY(0)'
     }
-    function hideNav() {
-      navbar!.style.opacity = '0'
-      navbar!.style.transform = 'translateY(-120%)'
-    }
+    lastY = y
+  }, { passive: true })
 
-    navbar.style.transition = 'opacity 0.35s ease, transform 0.35s ease'
+  // ── Hamburger toggle ─────────────────────────────────────────
+  function openMenu() {
+    menu.classList.add('is-open')
+    navbar.classList.add('is-open')
+    trigger.classList.add('is-open')
+    trigger.setAttribute('aria-expanded', 'true')
+    trigger.setAttribute('aria-label', 'Cerrar menú')
+    document.body.style.overflow = 'hidden'
+    navbar.style.opacity = '1'
+    navbar.style.transform = 'translateY(0)'
+  }
 
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY
-      if (y <= 10) { showNav(); lastY = y; return }
-      if (y > lastY && y > 100) hideNav()
-      else if (y < lastY) showNav()
-      lastY = y
-    }, { passive: true })
+  function closeMenu() {
+    menu.classList.remove('is-open')
+    navbar.classList.remove('is-open')
+    trigger.classList.remove('is-open')
+    trigger.setAttribute('aria-expanded', 'false')
+    trigger.setAttribute('aria-label', 'Abrir menú')
+    document.body.style.overflow = ''
+  }
 
-    // Hamburger toggle
-    const trigger = document.querySelector('[navbar-trigger]')
-    const menu = document.querySelector<HTMLElement>('.w-nav-menu')
-    trigger?.addEventListener('click', () => {
-      const open = menu?.classList.toggle('is-open')
-      trigger.classList.toggle('w--open', !!open)
-    })
+  trigger.addEventListener('click', () => {
+    menu.classList.contains('is-open') ? closeMenu() : openMenu()
+  })
+
+  // Cerrar al hacer click en un link
+  menu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu))
+
+  // Cerrar con Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu.classList.contains('is-open')) closeMenu()
   })
 </script>
 
 <style>
-  .w-nav-menu.is-open {
-    display: flex;
-    flex-direction: column;
+  /* ── Menú mobile: oculto por defecto ── */
+  @media screen and (max-width: 991px) {
+    #navbar-menu {
+      position: fixed;
+      top: var(--_dimensions---navbar-height);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: calc(100dvh - var(--_dimensions---navbar-height));
+      overflow-y: auto;
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    #navbar-menu.is-open {
+      opacity: 1;
+      pointer-events: auto;
+      visibility: visible;
+    }
+  }
+
+  /* ── Navbar background cuando el menú está abierto ── */
+  #navbar.is-open {
+    background-color: var(--brand--white-grey);
+    transition: background-color 0.3s ease;
+  }
+
+  /* ── Hamburger → X ── */
+  .menu-icon_line-top,
+  .menu-icon_line-middle,
+  .menu-icon_line-bottom {
+    transition: transform 0.3s ease, opacity 0.2s ease;
+  }
+
+  #navbar-trigger.is-open .menu-icon_line-top {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  #navbar-trigger.is-open .menu-icon_line-middle {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  #navbar-trigger.is-open .menu-icon_line-bottom {
+    transform: translateY(-7px) rotate(-45deg);
   }
 </style>

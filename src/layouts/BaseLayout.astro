@@ -36,10 +36,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
 
-    <!-- Swiper -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-
     <title>{title}</title>
 
     <!-- Schema.org -->
@@ -57,3 +53,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
     <slot />
   </body>
 </html>
+
+<script>
+  // Marca el html con .js para que el CSS de data-anim pueda ocultar
+  // elementos antes de que GSAP corra (evita flash de contenido visible)
+  document.documentElement.classList.add('js')
+
+  import { initAnimations } from '../lib/animations'
+  initAnimations()
+</script>
