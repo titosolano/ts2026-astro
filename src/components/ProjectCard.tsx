@@ -17,6 +17,7 @@ export interface Project {
 
 interface Props {
   project: Project
+  standalone?: boolean
 }
 
 const ExternalIcon = () => (
@@ -25,7 +26,10 @@ const ExternalIcon = () => (
   </svg>
 )
 
-export default function ProjectCard({ project }: Props) {
+export default function ProjectCard({ project, standalone = false }: Props) {
+  const anim = standalone ? 'blur-fade' : 'slide-blur'
+  const Title = standalone ? 'h1' : 'h3'
+
   return (
     <div className="padding-global">
         <div className="container-large">
@@ -35,7 +39,7 @@ export default function ProjectCard({ project }: Props) {
               {/* Left: text content */}
               <div className="use-case-template_top-left-content">
                 <div className="use-case-template_heading-wrapper"
-                  data-anim="slide-blur"
+                  data-anim={anim}
                   data-anim-delay="0.1"
                 >
                   {project.featured && (
@@ -49,7 +53,7 @@ export default function ProjectCard({ project }: Props) {
 
                   <div className="spacer-small" />
                   <div className="max-width-medium">
-                    <h3 className="heading-style-h3 text-style-balance">{project.title}</h3>
+                    <Title className="heading-style-h3 text-style-balance">{project.title}</Title>
                   </div>
                   <div className="spacer-small" />
 
@@ -80,7 +84,7 @@ export default function ProjectCard({ project }: Props) {
 
                 {/* Metadata: industry / year / role */}
                 <div className="use-case-template_features-list"
-                  data-anim="slide-blur"
+                  data-anim={anim}
                   data-anim-delay="0.2"
                 >
                   {project.industry && (
@@ -115,7 +119,7 @@ export default function ProjectCard({ project }: Props) {
 
               {/* Right: cover image */}
               <div className="use-case-template_top-right-left-content"
-                data-anim="slide-blur"
+                data-anim={anim}
                 data-anim-delay="0.05"
               >
                 <div className="use-case-template_image-wrapper">
@@ -138,7 +142,7 @@ export default function ProjectCard({ project }: Props) {
             <div className="use-case-template_mid-content">
               <div className="padding-section-small">
                 <div className="use-case-template_detail-list"
-                  data-anim="slide-blur"
+                  data-anim={anim}
                   data-anim-delay="0.3"
                 >
                   {project.challenge && (

@@ -1,0 +1,171 @@
+---
+import { client } from '../../lib/sanity'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Nav from '../../components/Nav.astro'
+import ProjectCard from '../../components/ProjectCard.tsx'
+import Footer from '../../components/Footer.astro'
+import type { Project } from '../../components/ProjectCard.tsx'
+
+const FALLBACK_PROJECTS: Project[] = [
+  {
+    title: 'La Citadelle',
+    slug: 'la-citadelle',
+    featured: true,
+    description: 'A premium Webflow website for La Citadelle de Québec, focused on elegant interactions, refined layouts, and a smooth editorial experience. The project combines minimalist visual direction with GSAP-powered scroll animations and Lottie animations, including line-based details that draw interface elements and illustrations as the user navigates through the site.',
+    credit: 'Webflow development by Tito Solano as part of Uroboro.ca development team.',
+    url: 'https://www.lacitadelle.qc.ca/',
+    industry: 'Museum / Cultural Institution',
+    year: 2024,
+    role: 'Lead Webflow Developer & Integration Developer',
+    challenge: 'The main challenge was bringing a clean and elegant design to life through subtle but meaningful interactions. The site needed to feel refined and premium, while keeping the navigation clear, responsive, and easy for the client to manage.',
+    approach: 'I developed the Webflow build with a focus on layout precision, responsive behavior, and scroll-based animation. GSAP and Lottie were used to create controlled transitions, animated details, and drawing effects, while the CMS structure allows the client to easily update events, content, and key sections of the website.',
+    keyFeatures: ['GSAP and Lottie animations for scroll-based motion and visual details', 'CMS structure for simple content and event management', 'Responsive implementation across key layouts', 'Clean, elegant experience enhanced with motion and depth'],
+    coverImage: '/images/mockup1.jpg',
+    coverImageAlt: 'La Citadelle website mockup.',
+  },
+  {
+    title: 'Morrin Centre Interactive Archive',
+    slug: 'morrin-centre',
+    featured: true,
+    description: 'An interactive Webflow-based archive experience designed for touch-screen use, allowing users to explore historical records through advanced filters, categories, years, and alphabetic search.',
+    credit: 'Webflow development by Tito Solano as part of Uroboro.ca development team.',
+    url: 'https://www.morrin.app/',
+    industry: 'Cultural Institution / Digital Archive',
+    year: 2024,
+    role: 'Lead Developer & Webflow',
+    challenge: 'The main challenge was building a searchable database experience that felt both functional and engaging in a touch-screen context.',
+    approach: 'I developed the interface and interaction logic around how users would physically explore the application on a screen. The system connects Webflow with Xano as the backend database.',
+    keyFeatures: ['Built an app-like archive experience inside Webflow.', 'Designed interactions around touch-screen usability.', 'Connected Webflow with Xano for searchable database logic.', 'Supported bilingual content and interface switching.', 'Added light and dark mode for different viewing contexts.'],
+    coverImage: '/images/morrin.avif',
+    coverImageAlt: "Person pointing at a tablet screen displaying a bright orange page titled Registre d'Écrou.",
+  },
+  {
+    title: 'Jeune Chambre De Commerce De Québec',
+    slug: 'jccq',
+    featured: true,
+    description: 'A dynamic Webflow website developed from an existing visual direction, focused on expressive layouts, animations, and a strong member-centered experience.',
+    credit: 'Webflow development by Tito Solano as part of Uroboro.ca development team.',
+    url: 'https://www.jccq.qc.ca/',
+    industry: 'Professional Network / Community',
+    year: 2024,
+    role: 'Lead Developer & Webflow',
+    challenge: 'The main challenge was translating a bold, animated design into a responsive and scalable website while also supporting more advanced application-like functionality.',
+    approach: 'I led the development of the website structure, animations, CMS collections, and technical integrations.',
+    keyFeatures: ['Technical architecture for advanced web app functionality inside Webflow', 'Dynamic systems for voting, promotion claims, submissions, validations, and data updates', 'Backend logic powered by Xano, Wized, JavaScript, and Make', 'Expressive animations balanced with responsive, maintainable layouts'],
+    coverImage: '/images/jccq-2.avif',
+    coverImageAlt: 'Robotic arms holding a screen displaying JCCA logo in a dim industrial space with concrete walls.',
+  },
+  {
+    title: 'Safari Condo',
+    slug: 'safari-condo',
+    featured: true,
+    description: 'A Webflow website developed from an existing creative direction with a highly original layout, rich layering, and scroll-based storytelling.',
+    credit: 'Webflow development by Tito Solano as part of Uroboro.ca development team.',
+    url: 'https://www.safaricondo.com/',
+    industry: 'Automotive / Travel',
+    year: 2024,
+    role: 'Lead Developer & Webflow',
+    challenge: 'The main challenge was translating a very distinctive visual design into a responsive, animated, and maintainable website.',
+    approach: 'I led the development and built most of the site, starting by solving the most complex layout and interaction patterns.',
+    keyFeatures: ['Scroll-based route animation inspired by a travel map', 'Custom SVG shapes, cards, and layered visual elements', 'GSAP, Lottie, and Swiper.js integrations'],
+    coverImage: '/images/safaricondo.avif',
+    coverImageAlt: 'Laptop showing a travel website with text Voyager. Toujours.',
+  },
+  {
+    title: 'Wendake',
+    slug: 'wendake',
+    featured: true,
+    description: 'A large-scale community platform created for the Huron-Wendat Nation, designed to help visitors and residents discover cultural experiences and community resources.',
+    credit: 'Webflow development by Tito Solano as part of Uroboro.ca development team.',
+    url: 'https://www.wendake.ca/',
+    industry: 'Culture & Community',
+    year: 2025,
+    role: 'Lead Developer & Webflow',
+    challenge: 'Organizing a large content ecosystem in a way that felt intuitive, accessible, and easy to navigate.',
+    approach: 'Built on a structured CMS architecture designed to manage a broad content ecosystem with clarity and scalability.',
+    keyFeatures: ['Large-scale CMS architecture', 'Custom favorites system', 'Advanced Foxy e-commerce implementation'],
+    coverImage: '/images/Wendake-Small.jpg',
+    coverImageAlt: 'Laptop floating in dark room showing website with a woman and text LA FORCE DU NOUS.',
+  },
+  {
+    title: 'Transbiotech',
+    slug: 'transbiotech',
+    featured: true,
+    description: 'A corporate website focused on creating a distinctive and memorable digital experience through layout and interaction design.',
+    credit: 'Webflow development by Tito Solano as part of Uroboro.ca development team.',
+    url: 'https://www.transbio.tech/',
+    industry: 'Biotechnology',
+    year: 2022,
+    role: 'Lead Developer & Webflow',
+    challenge: 'Translating a distinctive visual concept into a functional Webflow experience using layered curtain-style transitions.',
+    approach: 'Developed in Webflow using native interactions, with careful layering, sequencing, and responsive implementation.',
+    keyFeatures: ['Webflow interactions system', 'Unique curtain-style transitions', 'Responsive implementation'],
+    coverImage: '/images/Transbiotech-small.jpg',
+    coverImageAlt: 'Transbiotech website mockup.',
+  },
+  {
+    title: 'Wikky',
+    slug: 'wikky',
+    featured: true,
+    description: 'A brand and website redesign for a consulting business focused on Monday.com solutions.',
+    url: 'https://www.wikky.io/',
+    industry: 'Business Consulting',
+    year: 2025,
+    role: 'Brand Designer, Webflow Developer & Motion Designer',
+    challenge: 'Creating a simple but attractive website that could communicate the brand clearly and feel modern.',
+    approach: 'Developed in Webflow with a lightweight structure, CMS-driven content management, GSAP interactions, and Lottie animations.',
+    keyFeatures: ['Original brand and website redesign', 'GSAP-powered interactions', 'Lottie animations', 'CMS structure for simple content updates'],
+    coverImage: '/images/Wikky.jpg',
+    coverImageAlt: 'Wikky website mockup.',
+  },
+]
+
+export async function getStaticPaths() {
+  // getStaticPaths runs in isolation — fetch and return projects as props
+  // so the page component doesn't need a second fetch
+  const FALLBACK: Project[] = [
+    { title: 'La Citadelle', slug: 'la-citadelle', featured: true, description: 'A premium Webflow website for La Citadelle de Québec.', credit: 'Webflow development by Tito Solano as part of Uroboro.ca development team.', url: 'https://www.lacitadelle.qc.ca/', industry: 'Museum / Cultural Institution', year: 2024, role: 'Lead Webflow Developer & Integration Developer', challenge: 'Bringing a clean and elegant design to life through subtle but meaningful interactions.', approach: 'Developed with a focus on layout precision, responsive behavior, and scroll-based animation.', keyFeatures: ['GSAP and Lottie animations', 'CMS structure for content management', 'Responsive implementation', 'Clean, elegant experience'], coverImage: '/images/mockup1.jpg', coverImageAlt: 'La Citadelle website mockup.' },
+    { title: 'Morrin Centre Interactive Archive', slug: 'morrin-centre', featured: true, description: 'An interactive archive experience designed for touch-screen use.', credit: 'Webflow development by Tito Solano as part of Uroboro.ca development team.', url: 'https://www.morrin.app/', industry: 'Cultural Institution / Digital Archive', year: 2024, role: 'Lead Developer & Webflow', challenge: 'Building a searchable database experience in a touch-screen context.', approach: 'Developed with Webflow connected to Xano as the backend database.', keyFeatures: ['App-like archive experience', 'Touch-screen usability', 'Xano database integration', 'Bilingual content support'], coverImage: '/images/morrin.avif', coverImageAlt: "Registre d'Écrou screen." },
+    { title: 'Jeune Chambre De Commerce De Québec', slug: 'jccq', featured: true, description: 'A dynamic Webflow website with expressive layouts and member-centered experience.', credit: 'Webflow development by Tito Solano as part of Uroboro.ca development team.', url: 'https://www.jccq.qc.ca/', industry: 'Professional Network / Community', year: 2024, role: 'Lead Developer & Webflow', challenge: 'Translating a bold, animated design into a scalable website with app-like functionality.', approach: 'Led development of website structure, animations, CMS, and technical integrations.', keyFeatures: ['Advanced web app functionality', 'Voting and promotion systems', 'Xano, Wized, and Make integrations'], coverImage: '/images/jccq-2.avif', coverImageAlt: 'JCCQ website mockup.' },
+    { title: 'Safari Condo', slug: 'safari-condo', featured: true, description: 'A Webflow website with rich layering and scroll-based storytelling.', credit: 'Webflow development by Tito Solano as part of Uroboro.ca development team.', url: 'https://www.safaricondo.com/', industry: 'Automotive / Travel', year: 2024, role: 'Lead Developer & Webflow', challenge: 'Translating a distinctive visual design into a responsive and animated website.', approach: 'Built using SVG, GSAP, Lottie, and Swiper.js to preserve design intent.', keyFeatures: ['Scroll-based route animation', 'Custom SVG elements', 'GSAP and Lottie integrations'], coverImage: '/images/safaricondo.avif', coverImageAlt: 'Safari Condo website mockup.' },
+    { title: 'Wendake', slug: 'wendake', featured: true, description: 'A large-scale community platform for the Huron-Wendat Nation.', credit: 'Webflow development by Tito Solano as part of Uroboro.ca development team.', url: 'https://www.wendake.ca/', industry: 'Culture & Community', year: 2025, role: 'Lead Developer & Webflow', challenge: 'Organizing a large content ecosystem intuitively for visitors and residents.', approach: 'Structured CMS architecture for broad content ecosystem management.', keyFeatures: ['Large-scale CMS', 'Custom favorites system', 'Foxy e-commerce'], coverImage: '/images/Wendake-Small.jpg', coverImageAlt: 'Wendake website mockup.' },
+    { title: 'Transbiotech', slug: 'transbiotech', featured: true, description: 'A corporate website with distinctive curtain-style transitions.', credit: 'Webflow development by Tito Solano as part of Uroboro.ca development team.', url: 'https://www.transbio.tech/', industry: 'Biotechnology', year: 2022, role: 'Lead Developer & Webflow', challenge: 'Translating a distinctive visual concept into a functional Webflow experience.', approach: 'Developed using Webflow native interactions with careful layering and sequencing.', keyFeatures: ['Webflow interactions system', 'Curtain-style transitions', 'Responsive implementation'], coverImage: '/images/Transbiotech-small.jpg', coverImageAlt: 'Transbiotech website mockup.' },
+    { title: 'Wikky', slug: 'wikky', featured: true, description: 'A brand and website redesign for a Monday.com consulting business.', url: 'https://www.wikky.io/', industry: 'Business Consulting', year: 2025, role: 'Brand Designer, Webflow Developer & Motion Designer', challenge: 'Creating a modern website that communicates the brand clearly.', approach: 'Lightweight Webflow build with CMS, GSAP, and Lottie animations.', keyFeatures: ['Brand redesign', 'GSAP interactions', 'Lottie animations', 'CMS structure'], coverImage: '/images/Wikky.jpg', coverImageAlt: 'Wikky website mockup.' },
+  ]
+
+  try {
+    const { createClient } = await import('@sanity/client')
+    const projectId = process.env.PUBLIC_SANITY_PROJECT_ID
+    if (projectId) {
+      const sanity = createClient({ projectId, dataset: process.env.PUBLIC_SANITY_DATASET ?? 'production', apiVersion: '2024-01-01', useCdn: true })
+      const data = await sanity.fetch(`
+        *[_type == "project"] | order(order asc) {
+          title, "slug": slug.current, featured,
+          "description": pt::text(description), credit, url, industry, year, role,
+          "challenge": pt::text(challenge), "approach": pt::text(approach), keyFeatures,
+          "coverImage": coverImage.asset->url, "coverImageAlt": coalesce(coverImageAlt, title),
+        }
+      `)
+      if (data?.length) {
+        return data.map((project: Project) => ({ params: { slug: project.slug }, props: { project } }))
+      }
+    }
+  } catch {}
+
+  return FALLBACK.map(project => ({ params: { slug: project.slug }, props: { project } }))
+}
+
+const { project } = Astro.props as { project: Project }
+---
+
+<BaseLayout title={`${project.title} — Tito Solano`}>
+  <div class="page-wrapper">
+    <Nav />
+    <main class="main-wrapper">
+      <section class="use-case-template_component">
+        <ProjectCard project={project} standalone />
+      </section>
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>
