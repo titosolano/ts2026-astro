@@ -1,6 +1,30 @@
+/* ═══════════════════════════════════════════════════════════════
+   GLOBAL — Punto de entrada de todos los estilos
+
+   El orden de imports importa: Tailwind primero, luego el sistema
+   Client-First, luego componentes, luego secciones.
+
+   Para agregar estilos nuevos:
+     • Utilidades reutilizables → client-first.css (sección correspondiente)
+     • Nuevo componente         → components.css (al final)
+     • Nueva sección de página  → sections.css (al final)
+     • Tokens de diseño         → :root en client-first.css, sección 1
+═══════════════════════════════════════════════════════════════ */
+
 @import "tailwindcss";
 
+/* Utilidades base: tokens, reset, tipografía, spacing, layout */
+@import "./utilities.css";
+
+/* Componentes reutilizables: navbar, hero, buttons, testimonial, slider, footer */
+@import "./components.css";
+
+/* Secciones de la página: work, capabilities, about, faq, news, process */
+@import "./sections.css";
+
+
 /* ── Fonts ── */
+
 @font-face {
   font-family: 'Arimo';
   src: url('/fonts/Arimo.woff2') format('woff2');
@@ -15,64 +39,41 @@
   font-display: swap;
 }
 
-/* ── Design tokens (extracted from ts2026.webflow.css) ── */
+
+/* ── Design tokens para Tailwind (uso con clases tw-*) ── */
+
 @theme {
   --font-sans: 'Arimo', sans-serif;
   --font-mono: 'Space Mono', monospace;
-
-  /* Colors — update once Sanity project is live */
-  --color-background: #0d0d0d;
-  --color-surface: #1a1a1a;
-  --color-border: #2a2a2a;
-  --color-text-primary: #f0f0f0;
-  --color-text-secondary: #888888;
-  --color-accent: #e8e0d0;
-
-  /* Spacing scale */
-  --spacing-section-small: 4rem;
-  --spacing-section-medium: 6rem;
-  --spacing-section-large: 10rem;
 }
 
-/* ── Base ── */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html {
-  font-family: var(--font-sans);
-  background-color: var(--color-background);
-  color: var(--color-text-primary);
-  -webkit-font-smoothing: antialiased;
-}
-
-img,
-video {
-  max-width: 100%;
-  height: auto;
-}
 
 /* ── Fluid typography ── */
+
 html { font-size: calc(0.625rem + 0.41666666666666663vw); }
 @media screen and (max-width: 1920px) { html { font-size: calc(0.625rem + 0.41666666666666674vw); } }
 @media screen and (max-width: 1440px) { html { font-size: calc(0.8126951092611863rem + 0.20811654526534862vw); } }
 @media screen and (max-width: 479px)  { html { font-size: calc(0.7494769874476988rem + 0.8368200836820083vw); } }
 
+
 /* ── Brand selection color ── */
+
 ::selection {
   background-color: #7bfb1a;
   color: #000;
 }
 
-/* ── Responsive visibility ── */
+
+/* ── Responsive visibility (con !important para sobrescribir Tailwind) ── */
+
 .hide { display: none !important; }
 @media screen and (max-width: 991px) { .hide, .hide-tablet { display: none !important; } }
 @media screen and (max-width: 767px) { .hide-mobile-landscape { display: none !important; } }
 @media screen and (max-width: 479px) { .hide-mobile { display: none !important; } }
 
-/* ── Card link overlay (used in project cards) ── */
+
+/* ── Card link overlay (usado en project cards) ── */
+
 .card-link-wrapper::before {
   content: "";
   position: absolute;
@@ -81,5 +82,7 @@ html { font-size: calc(0.625rem + 0.41666666666666663vw); }
   cursor: pointer;
 }
 
+
 /* ── FAQ / accordion smooth height animation ── */
+
 :root { interpolate-size: allow-keywords; }
