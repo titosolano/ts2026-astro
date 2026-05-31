@@ -39,7 +39,7 @@ const FALLBACK_TESTIMONIALS: Testimonial[] = [
 let testimonials: Testimonial[] = FALLBACK_TESTIMONIALS
 
 try {
-  const data = await client.fetch(`
+  const data = await client?.fetch(`
     *[_type == "testimonial"] | order(order asc) {
       quote,
       "name": authorName,
