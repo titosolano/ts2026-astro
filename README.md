@@ -50,8 +50,7 @@ En Vercel estas mismas variables se agregan en **Settings → Environment Variab
 ts2026-astro/
 ├── public/
 │   ├── fonts/          Arimo, Space Mono
-│   ├── images/         Assets estáticos
-│   └── ts2026.css      CSS portado de Webflow (no modificar directamente)
+│   └── images/         Assets estáticos
 └── src/
     ├── components/
     │   ├── Nav.astro              Navbar con reloj, scroll-hide, hamburger

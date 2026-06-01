@@ -353,6 +353,37 @@ The site is statically built — any value computed at build time (like `new Dat
 
 This pattern applies to: current year in copyright notices, any date-relative content, or anything that would look wrong if the site goes months without a rebuild.
 
+### box-sizing reset is mandatory
+
+The CSS system requires `*, *::before, *::after { box-sizing: border-box }` to function correctly. Without it, elements with `width: 100%` and explicit padding overflow their containers — for example `navbar_navbar` with `width: 100%` and `padding: 2.5rem` would be `viewport + 5rem` wide, pushing content off-screen.
+
+This reset lives at the top of the RESET section in `utilities.css`. It must not be removed. It was previously provided implicitly by Tailwind's preflight; after removing Tailwind it must be explicit.
+
+### Webflow `w-*` classes are dead in Astro
+
+`w-inline-block`, `w-embed`, `w-variant-*`, `w--open`, `w--current` are Webflow runtime classes — they are either added by Webflow.js (which is not loaded) or carry no CSS in this project. They do nothing and should not appear in components. Their functional behavior must be replicated natively:
+
+- `w-inline-block` → `width: fit-content` on the component wrapper, or rely on flex/block intrinsic sizing
+- `w-embed` → plain `<div>` wrapper for inline SVG, no class needed
+- `w-variant-[hash]` → rename to a semantic Client-First modifier (e.g. `is-navbar`, `is-vertical`)
+- `w--open`, `w--current` → never apply; state is managed by JS class toggling on semantic classes
+
+### Webflow `<deleted|...>` CSS variables are dead
+
+Variables like `--base-color-neutral--black<deleted|variable-...>` are Webflow export artifacts. They have garbage names and are only referenced by other dead code (form kit, semantic color utilities, generic button variants). Do not use them in new code — use the clean `--brand--*` tokens instead. When removing dead CSS blocks, their entire chain of variable definitions can be removed safely.
+
+### Webflow export cleanup checklist
+
+When migrating or cleaning up a Webflow export in this stack, check for and remove:
+
+- `w-layout-grid`, `w-checkbox*`, `w-form-formradioinput*` — Webflow form primitives
+- `.global-styles`, `.project-settings_*` — hiders for Webflow proprietary script elements
+- `@keyframes loop-left/loop-right` + classes — ticker/marquee if not used
+- `video-background_*` — if no video elements in design
+- `#w-node-[hash]` ID selectors — grid-area placements from Webflow designer, only needed if the corresponding `id="w-node-*"` attribute is still in the HTML
+- `<deleted|...>` variable chains — see above
+- `w-*` classes in HTML — see above
+
 ---
 
 ## Working Principles

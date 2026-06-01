@@ -11,8 +11,6 @@
      • Tokens de diseño         → :root en client-first.css, sección 1
 ═══════════════════════════════════════════════════════════════ */
 
-@import "tailwindcss";
-
 /* Utilidades base: tokens, reset, tipografía, spacing, layout */
 @import "./utilities.css";
 
@@ -40,14 +38,6 @@
 }
 
 
-/* ── Design tokens para Tailwind (uso con clases tw-*) ── */
-
-@theme {
-  --font-sans: 'Arimo', sans-serif;
-  --font-mono: 'Space Mono', monospace;
-}
-
-
 /* ── Fluid typography ── */
 
 html { font-size: calc(0.625rem + 0.41666666666666663vw); }
@@ -64,7 +54,7 @@ html { font-size: calc(0.625rem + 0.41666666666666663vw); }
 }
 
 
-/* ── Responsive visibility (con !important para sobrescribir Tailwind) ── */
+/* ── Responsive visibility ── */
 
 .hide { display: none !important; }
 @media screen and (max-width: 991px) { .hide, .hide-tablet { display: none !important; } }

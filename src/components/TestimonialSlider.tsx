@@ -73,12 +73,12 @@ export default function TestimonialSlider({ testimonials }: Props) {
       </div>
 
       <div className="testimonial-slider_buttons-position">
-        <div className="slider-controls_component w-variant-8875b4b4-bd89-c661-cc80-1858cae07d96">
-          <div className="slider-buttons_component w-variant-8875b4b4-bd89-c661-cc80-1858cae07d96">
+        <div className="slider-controls_component is-vertical">
+          <div className="slider-buttons_component is-vertical">
             {(['prev', 'next'] as const).map((dir) => (
               <button
                 key={dir}
-                className={`slider-buttons_button w-variant-8875b4b4-bd89-c661-cc80-1858cae07d96 swiper-${dir}`}
+                className={`slider-buttons_button is-vertical swiper-${dir}`}
                 aria-label={dir === 'prev' ? 'Previous testimonial' : 'Next testimonial'}
               >
                 <div className={`slider-buttons_arrow-wrapper${dir === 'prev' ? ' is-left' : ''}`}>

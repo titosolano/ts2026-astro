@@ -6,17 +6,7 @@ interface Props {
   variant?: 'base' | 'navbar'
 }
 const { href, label, target, variant = 'base' } = Astro.props
-
 const isNavbar = variant === 'navbar'
-const wrapperClass = [
-  'button-01_main-wrapper',
-  'w-inline-block',
-  isNavbar ? 'w-variant-0a08ea43-d5b0-e2b1-44fd-80e1276f6f50' : '',
-].filter(Boolean).join(' ')
-const rightClass = [
-  'button-01_right-wrapper',
-  isNavbar ? 'w-variant-0a08ea43-d5b0-e2b1-44fd-80e1276f6f50' : '',
-].filter(Boolean).join(' ')
 ---
 
 <div class="button-01_component">
@@ -24,34 +14,29 @@ const rightClass = [
     href={href}
     target={target}
     rel={target === '_blank' ? 'noopener noreferrer' : undefined}
-    class={wrapperClass}
+    class:list={['button-01_main-wrapper', { 'is-navbar': isNavbar }]}
   >
-    <!-- Label -->
     <div class="button-01_text-wrapper">
       <div>{label}</div>
     </div>
 
-    <!-- Arrow + texture -->
-    <div class={rightClass}>
-      <div class="button-01_arrow-wrapper">
-        <div class="button-01_arrow-position">
-          <div class="button-01_arrow-img w-embed">
-            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 7 14" fill="none" aria-hidden="true">
-              <path d="M0.613281 0.61377L6.34059 6.75017L0.613281 12.8866" stroke="currentColor" stroke-width="1.22728" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
+    <div class="button-01_arrow-wrapper">
+      <div class="button-01_arrow-position">
+        <div class="button-01_arrow-img">
+          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 7 14" fill="none" aria-hidden="true">
+            <path d="M0.613281 0.61377L6.34059 6.75017L0.613281 12.8866" stroke="currentColor" stroke-width="1.22728" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
-        <div class="button-01_arrow-position">
-          <div class="button-01_arrow-img w-embed">
-            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 7 14" fill="none" aria-hidden="true">
-              <path d="M0.613281 0.61377L6.34059 6.75017L0.613281 12.8866" stroke="currentColor" stroke-width="1.22728" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
+      </div>
+      <div class="button-01_arrow-position">
+        <div class="button-01_arrow-img">
+          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 7 14" fill="none" aria-hidden="true">
+            <path d="M0.613281 0.61377L6.34059 6.75017L0.613281 12.8866" stroke="currentColor" stroke-width="1.22728" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
       </div>
     </div>
 
-    <!-- Dark background fill — must be direct child of main-wrapper -->
     <div class="button-01_background"></div>
   </a>
 </div>

@@ -34,16 +34,11 @@ const ArrowIcon = () => (
 
 const ButtonArrow = ({ href, label, target }: { href: string; label: string; target?: string }) => (
   <div className="button-01_component">
-    <a href={href} target={target} rel={target === '_blank' ? 'noopener noreferrer' : undefined} className="button-01_main-wrapper w-inline-block">
+    <a href={href} target={target} rel={target === '_blank' ? 'noopener noreferrer' : undefined} className="button-01_main-wrapper">
       <div className="button-01_text-wrapper"><div>{label}</div></div>
-      <div className="button-01_right-wrapper">
-        <div className="button-01_arrow-wrapper">
-          {[0, 1].map(i => (
-            <div key={i} className="button-01_arrow-position">
-              <div className="button-01_arrow-img w-embed"><ArrowIcon /></div>
-            </div>
-          ))}
-        </div>
+      <div className="button-01_arrow-wrapper">
+        <div className="button-01_arrow-position"><div className="button-01_arrow-img"><ArrowIcon /></div></div>
+        <div className="button-01_arrow-position"><div className="button-01_arrow-img"><ArrowIcon /></div></div>
       </div>
       <div className="button-01_background" />
     </a>
