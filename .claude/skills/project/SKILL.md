@@ -243,6 +243,32 @@ The chain that works: slide element is `display: flex; flex-direction: column` â
 
 ---
 
+## Page and Section Wrappers
+
+### Always wrap full-section components in a semantic tag
+
+When a component covers an entire page section or the full content area of a page, the consuming `.astro` file must wrap it in a `<section>` or `<header>` tag with a descriptive class. Never mount a component directly inside `<main>` or another layout element without a semantic wrapper.
+
+Use `<section>` for content sections, `<header>` for introductory or hero areas.
+
+```astro
+<!-- Correct -->
+<main class="main-wrapper">
+  <section class="section_case-study">
+    <ProjectCard project={project} standalone />
+  </section>
+</main>
+
+<!-- Wrong â€” component mounted directly without semantic wrapper -->
+<main class="main-wrapper">
+  <ProjectCard project={project} standalone />
+</main>
+```
+
+The class on the wrapper (`section_case-study`, `section_about`, etc.) follows the same Client-First naming convention as all other sections, and serves as the CSS scoping anchor for any page-level overrides.
+
+---
+
 ## CSS Conventions
 
 ### Links must use `color: inherit`

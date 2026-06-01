@@ -1,9 +1,14 @@
 ---
 import NavClock from './NavClock.tsx'
 import ButtonArrow from './ButtonArrow.astro'
+
+interface Props {
+  variant?: 'fixed' | 'sticky'
+}
+const { variant = 'fixed' } = Astro.props
 ---
 
-<div class="navbar_component">
+<div class={`navbar_component${variant === 'sticky' ? ' is-sticky' : ''}`}>
   <div class="navbar_navbar" id="navbar">
     <div class="line_component horizontal-bottom">
       <div class="line_line-temp horizontal-bottom-2"></div>

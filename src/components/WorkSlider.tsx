@@ -75,7 +75,7 @@ export default function WorkSlider({ projects }: Props) {
       <div className="study-case-slider_list-wrapper swiper" ref={swiperRef}>
         <div className="study-case-slider_list swiper-wrapper">
           {projects.map((p) => (
-            <div key={p.slug} className="swiper-slide use-case-template_component">
+            <div key={p.slug} className="swiper-slide study-case-slider_list-item">
               <ProjectCard project={p} />
             </div>
           ))}

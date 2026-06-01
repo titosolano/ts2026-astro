@@ -31,6 +31,7 @@
 ────────────────────────────────────────────────────────────── */
 
 .navbar_component { z-index: 1000; pointer-events: none; position: fixed; inset: 0% 0% auto; }
+.navbar_component.is-sticky { position: sticky; top: 0; inset: unset; }
 
 .navbar_navbar {
   z-index: 1000;

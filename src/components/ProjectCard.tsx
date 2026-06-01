@@ -26,11 +26,36 @@ const ExternalIcon = () => (
   </svg>
 )
 
+const ArrowIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 7 14" fill="none" aria-hidden="true">
+    <path d="M0.613281 0.61377L6.34059 6.75017L0.613281 12.8866" stroke="currentColor" strokeWidth="1.22728" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
+const ButtonArrow = ({ href, label, target }: { href: string; label: string; target?: string }) => (
+  <div className="button-01_component">
+    <a href={href} target={target} rel={target === '_blank' ? 'noopener noreferrer' : undefined} className="button-01_main-wrapper w-inline-block">
+      <div className="button-01_text-wrapper"><div>{label}</div></div>
+      <div className="button-01_right-wrapper">
+        <div className="button-01_arrow-wrapper">
+          {[0, 1].map(i => (
+            <div key={i} className="button-01_arrow-position">
+              <div className="button-01_arrow-img w-embed"><ArrowIcon /></div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="button-01_background" />
+    </a>
+  </div>
+)
+
 export default function ProjectCard({ project, standalone = false }: Props) {
   const anim = standalone ? 'blur-fade' : 'slide-blur'
   const Title = standalone ? 'h1' : 'h3'
 
   return (
+    <div className="use-case-template_component">
     <div className="padding-global">
         <div className="container-large">
           <div className="padding-section-small">
@@ -65,8 +90,9 @@ export default function ProjectCard({ project, standalone = false }: Props) {
                       </div>
                     )}
                     {project.url && (
-                      <div className="spacer-small">
+                      <div className={standalone ? 'spacer-small' : 'spacer-medium'}>
                         <div className="button-group">
+                          {!standalone && <ButtonArrow href={`/case-studies/${project.slug}`} label="Case study" />}
                           <a
                             rel="noopener noreferrer"
                             href={project.url}
@@ -181,5 +207,6 @@ export default function ProjectCard({ project, standalone = false }: Props) {
 
         </div>
       </div>
+    </div>
   )
 }
