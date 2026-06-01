@@ -19,14 +19,14 @@ const { label, subtitle, description, variant = 'base' } = Astro.props
         <div class="padding-section-medium">
           <div class="section-header-01_main-wrapper">
             <div class="section-header-01_left-content">
-              <h2 class="heading-style-h1">{label}</h2>
-              {subtitle && <div class="text-color-grey">{subtitle}</div>}
+              <h2 class="heading-style-h1" data-anim="blur-fade">{label}</h2>
+              {subtitle && <div class="text-style-section-subtitle text-color-grey" data-anim="blur-fade" data-anim-delay="0.1">{subtitle}</div>}
             </div>
             <div class="section-header-01_spacer"></div>
             {description && (
               <div class="section-header-01_right-wrapper">
                 <div class="max-width-medium">
-                  <p class="text-color-grey">{description}</p>
+                  <p class="text-color-grey" data-anim="fade" data-anim-delay="0.2">{description}</p>
                 </div>
               </div>
             )}

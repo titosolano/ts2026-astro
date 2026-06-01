@@ -187,6 +187,7 @@ figcaption { text-align: center; margin-top: .25rem; }
 .heading-style-h6 { font-size: 1rem; font-weight: 700; line-height: 1.5; }
 .heading-style-tag { letter-spacing: .2em; text-transform: uppercase; font-size: .875rem; }
 .heading-style-label { font-family: var(--_fonts---fantasy); letter-spacing: .2em; text-transform: uppercase; font-size: .6rem; font-weight: 600; }
+.text-style-section-subtitle { font-family: var(--_fonts---fantasy); letter-spacing: .2em; text-transform: uppercase; font-size: .75rem; }
 .heading-cards { letter-spacing: .1em; text-transform: uppercase; font-size: 1rem; font-weight: 600; }
 
 .text-size-tiny { font-size: .75rem; }
