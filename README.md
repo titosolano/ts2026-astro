@@ -7,8 +7,10 @@ Portfolio personal de Tito Solano. Migrado desde Webflow a un stack propio con C
 | Capa | Tecnología |
 |---|---|
 | Frontend | Astro 6 + TypeScript |
-| Estilos | Tailwind v4 + CSS portado de Webflow (Client-First) |
-| Componentes interactivos | React (solo donde hay estado) |
+| Estilos | CSS global Client-First (sin frameworks) |
+| Componentes interactivos | React (islas, solo donde hay JS) |
+| Animaciones | GSAP + ScrollTrigger (sistema `data-anim`) |
+| Sliders | Swiper.js |
 | CMS | Sanity v5 — studio en `titosolano.sanity.studio` |
 | Deploy | Vercel — auto-deploy en cada push a `main` |
 
@@ -25,8 +27,6 @@ npm run dev
 npm run build
 
 # Publicar
-git add .
-git commit -m "feat: descripción"
 git push
 ```
 
@@ -37,40 +37,59 @@ Crea un archivo `.env` en la raíz con:
 ```
 PUBLIC_SANITY_PROJECT_ID=3i6bh3hq
 PUBLIC_SANITY_DATASET=production
-SANITY_API_TOKEN=tu_token
 ```
 
 En Vercel estas mismas variables se agregan en **Settings → Environment Variables**.
 
-> `.env` está en `.gitignore` — nunca sube a GitHub. Solo `.env.example` está versionado.
+> `.env` está en `.gitignore` — nunca sube a GitHub.
 
 ## Estructura del proyecto
 
 ```
 ts2026-astro/
 ├── public/
-│   ├── fonts/          Arimo, Space Mono
+│   ├── fonts/          Arimo, Space Mono (woff2)
 │   └── images/         Assets estáticos
 └── src/
     ├── components/
-    │   ├── Nav.astro              Navbar con reloj, scroll-hide, hamburger
-    │   ├── Hero.astro             Header con testimonios desde Sanity
-    │   ├── Footer.astro           Footer global
-    │   ├── ButtonArrow.astro      Botón reutilizable con flecha
-    │   ├── ButtonCall.astro       Botón "Book a Call" con foto
-    │   ├── SectionHeader.astro    Header de sección (Work, Approach, etc.)
-    │   ├── SliderControls.astro   Prev/Next para cualquier slider
-    │   ├── TestimonialCard.astro  Tarjeta de testimonio individual
-    │   ├── TestimonialSlider.tsx  Slider Swiper (React, datos desde Sanity)
-    │   └── NavClock.tsx           Reloj en vivo zona Costa Rica (React)
+    │   ├── Nav.astro                 Navbar (scroll-hide, hamburger, reloj)
+    │   ├── Hero.astro                Hero con testimonios desde Sanity
+    │   ├── Work.astro                Sección Work (slider de proyectos)
+    │   ├── Approach.astro            Sección Approach (4 pasos)
+    │   ├── Capabilities.astro        Sección Capabilities (sticky scroll)
+    │   ├── About.astro               Sección About
+    │   ├── FAQ.astro                 Sección FAQ (accordion)
+    │   ├── News.astro                Sección News/Milestones (slider)
+    │   ├── Footer.astro              Footer global
+    │   ├── SectionHeader.astro       Header de sección reutilizable
+    │   ├── SectionHeaderImage.astro  Header con imagen de fondo
+    │   ├── ButtonArrow.tsx           Botón con flecha animada (React)
+    │   ├── ButtonCall.astro          Botón "Book a Call" con foto
+    │   ├── WorkSlider.tsx            Slider de proyectos (Swiper + slide-blur)
+    │   ├── ProjectCard.tsx           Card de proyecto (slider y standalone)
+    │   ├── TestimonialSlider.tsx     Slider de testimonios (Swiper fade)
+    │   ├── TestimonialCard.astro     Card de testimonio
+    │   ├── NewsSlider.tsx            Slider de milestones (Swiper loop)
+    │   ├── MilestoneCard.tsx         Card de milestone
+    │   ├── SliderButtons.tsx         Controles prev/next reutilizables
+    │   ├── Accordion.tsx             FAQ accordion (GSAP height)
+    │   └── NavClock.tsx              Reloj en vivo zona Costa Rica
+    ├── data/
+    │   └── projects.ts               Fallback data + GROQ query centralizados
     ├── layouts/
-    │   └── BaseLayout.astro       Layout base con SEO, fonts, CSS global
+    │   └── BaseLayout.astro          Layout base (SEO, fonts, animaciones)
     ├── lib/
-    │   └── sanity.ts              Cliente Sanity + urlFor()
+    │   ├── animations.ts             Sistema data-anim (GSAP + ScrollTrigger)
+    │   └── sanity.ts                 Cliente Sanity + urlFor()
     ├── pages/
-    │   └── index.astro            Página principal
+    │   ├── index.astro               Homepage
+    │   └── case-studies/
+    │       └── [slug].astro          Páginas de case study (generadas desde Sanity)
     └── styles/
-        └── global.css             Tokens de diseño + @font-face
+        ├── global.css                Punto de entrada + resets + fonts
+        ├── utilities.css             Tokens, tipografía, spacing, layout
+        ├── components.css            Navbar, Hero, Buttons, Slider, Footer
+        └── sections.css              Estilos por sección de página
 ```
 
 ## Convención de nombres (Client-First)
@@ -88,32 +107,31 @@ No usar sufijos numéricos de Webflow (`navbar1_`, `header5_`, `testimonial39_`)
 
 ## Secciones completadas
 
-- Nav (reloj en vivo, scroll-hide, hamburger mobile)
-- Hero (testimonios conectados a Sanity, fallback estático si no hay datos)
-- Footer (ButtonCall, NavClock, nav links)
-
-## Secciones pendientes
-
-- Work — proyectos desde Sanity (`project` schema)
-- Approach — estática
-- Capabilities — estática
-- About — estática
-- FAQ — acordeón con `interpolate-size`
-- News — posts desde Sanity (`post` schema)
-- Páginas dinámicas: `projects/[slug].astro`, `posts/[slug].astro`
+- **Nav** — reloj en vivo, scroll-hide, hamburger mobile, animaciones load
+- **Hero** — testimonios desde Sanity, fallback estático, slide-blur
+- **Work** — slider Swiper con slide-blur, 7 proyectos desde Sanity
+- **Approach** — 4 pasos + 3 columnas, animaciones blur-fade
+- **Capabilities** — sticky scroll stacking, 4 items
+- **About** — grid complejo, imagen + quote
+- **FAQ** — accordion nativo React + GSAP, datos desde Sanity
+- **News/Milestones** — Swiper loop + autoplay, datos desde Sanity
+- **Footer** — año dinámico, links con color inherit
+- **Case studies** — páginas dinámicas por slug desde Sanity (`/case-studies/[slug]`)
 
 ## Sanity CMS
 
 - Studio en producción: [titosolano.sanity.studio](https://titosolano.sanity.studio)
 - Studio local: `cd ../ts2026-sanity && npm run dev`
-- Schemas disponibles: `project`, `testimonial`, `post`
-- Webhook configurado: al guardar contenido en el studio, Vercel redeploya automáticamente
+- Schemas: `project`, `testimonial`, `faq`, `milestone`, `post`
 
-### Agregar contenido
+Cambios de contenido en Sanity requieren un nuevo build para reflejarse (el sitio es estático):
 
-1. Entrá a [titosolano.sanity.studio](https://titosolano.sanity.studio)
-2. Creá o editá documentos
-3. Guardá — el webhook dispara un redeploy automático en Vercel (~1 min)
+```bash
+# Deploy manual tras cambios de contenido
+vercel --prod
+```
+
+> El webhook Sanity → Vercel está pendiente de configurar para auto-deploy.
 
 ### Re-deployar el studio
 
@@ -121,3 +139,15 @@ No usar sufijos numéricos de Webflow (`navbar1_`, `header5_`, `testimonial39_`)
 cd ../ts2026-sanity
 npx sanity deploy
 ```
+
+## Sistema de animaciones
+
+Las animaciones usan atributos `data-anim` — no requieren imports en los componentes:
+
+```html
+<div data-anim="fade">...</div>
+<div data-anim="blur-fade" data-anim-delay="0.2">...</div>
+<div data-anim="slide-up" data-anim-stagger="0.08">...</div>
+```
+
+Solo activo en desktop (≥992px + mouse). Ver `.claude/skills/animate/SKILL.md` para documentación completa.

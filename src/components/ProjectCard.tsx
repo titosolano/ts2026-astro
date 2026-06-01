@@ -1,3 +1,5 @@
+import ButtonArrow from './ButtonArrow'
+
 export interface Project {
   title: string
   slug: string
@@ -26,24 +28,6 @@ const ExternalIcon = () => (
   </svg>
 )
 
-const ArrowIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 7 14" fill="none" aria-hidden="true">
-    <path d="M0.613281 0.61377L6.34059 6.75017L0.613281 12.8866" stroke="currentColor" strokeWidth="1.22728" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-)
-
-const ButtonArrow = ({ href, label, target }: { href: string; label: string; target?: string }) => (
-  <div className="button-01_component">
-    <a href={href} target={target} rel={target === '_blank' ? 'noopener noreferrer' : undefined} className="button-01_main-wrapper">
-      <div className="button-01_text-wrapper"><div>{label}</div></div>
-      <div className="button-01_arrow-wrapper">
-        <div className="button-01_arrow-position"><div className="button-01_arrow-img"><ArrowIcon /></div></div>
-        <div className="button-01_arrow-position"><div className="button-01_arrow-img"><ArrowIcon /></div></div>
-      </div>
-      <div className="button-01_background" />
-    </a>
-  </div>
-)
 
 export default function ProjectCard({ project, standalone = false }: Props) {
   const anim = standalone ? 'blur-fade' : 'slide-blur'

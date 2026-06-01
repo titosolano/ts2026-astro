@@ -3,6 +3,7 @@ import Swiper from 'swiper'
 import { Navigation, Autoplay, EffectFade } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/effect-fade'
+import { initSlideBlurScope } from '../lib/animations'
 
 export interface Testimonial {
   quote: string
@@ -30,10 +31,16 @@ export default function TestimonialSlider({ testimonials }: Props) {
       effect: 'fade',
       fadeEffect: { crossFade: true },
       slidesPerView: 1,
+      slideActiveClass: 'is-active',
       navigation: {
         nextEl: '.swiper-next',
         prevEl: '.swiper-prev',
         disabledClass: 'is-disabled',
+      },
+      on: {
+        init() {
+          requestAnimationFrame(() => initSlideBlurScope(swiperRef.current!))
+        },
       },
     })
 
@@ -49,13 +56,13 @@ export default function TestimonialSlider({ testimonials }: Props) {
               <div key={t.name} className="testimonial-slider_list-item swiper-slide">
                 <div className="testimonial-card_component">
                   <div className="testimonial-card_main-wrapper">
-                    <div className="testimonial-card_content-top">
+                    <div className="testimonial-card_content-top" data-anim="slide-blur">
                       <img loading="lazy" src="/images/quote.svg" alt="" className="icon-1x1-small" />
                       <div className="spacer-small" />
                       <div>{t.quote}</div>
                     </div>
                     <div className="spacer-small" />
-                    <div className="testimonial-card_client">
+                    <div className="testimonial-card_client" data-anim="slide-blur" data-anim-delay="0.15">
                       <div className="testimonial-card_client-image-wrapper">
                         <img loading="lazy" src={t.photo} alt={t.photoAlt} className="testimonial-card_client-image" />
                       </div>
