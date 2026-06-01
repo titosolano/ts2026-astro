@@ -96,16 +96,18 @@ has-[feature]            → feature modifier
 ### Utility classes (from utilities.css)
 
 ```
-padding-global           → standard horizontal padding
-container-large          → max-width container (centered)
-padding-section-medium   → vertical section padding
-spacer-small/medium/large → margin spacers
+padding-global               → standard horizontal padding
+container-large              → max-width container (centered)
+padding-section-medium       → vertical section padding
+spacer-small/medium/large    → margin spacers
 max-width-small/medium/large → content width constraints
-text-color-grey/green    → color utilities
-heading-style-h1/h2/h3   → heading sizes
-text-size-regular/small  → body text sizes
-heading-style-label      → label style (uppercase, letter-spacing, small caps)
-heading-cards            → card heading style (uppercase, letter-spacing 0.1em)
+text-color-grey/green        → color utilities
+heading-style-h1/h2/h3       → heading sizes
+text-size-regular/small      → body text sizes
+heading-style-label          → label style (fantasy font, uppercase, .6rem, weight 600)
+text-style-section-subtitle  → section subtitle (fantasy font, uppercase, .75rem) — used on subtitle in SectionHeader and SectionHeaderImage
+heading-cards                → card heading style (uppercase, letter-spacing 0.1em, 1rem)
+text-style-muted             → opacity: .6 for secondary text
 ```
 
 ### Important: never invent class names
@@ -136,6 +138,22 @@ Used for: anything with JS interactivity (sliders, accordions, toggles).
 - Always add `client:load` in Astro when using React
 - React components receive data as props from the parent `.astro` file
 - The `.astro` file handles Sanity fetching; React gets clean data arrays
+- React components rendered without `client:load` produce static HTML only — use this for reusing a React component in a static page context (e.g. `ProjectCard` in a case study page)
+
+### Context-aware components — the `standalone` prop pattern
+
+When a component is used in two different contexts that require different behavior (e.g. inside a Swiper slider vs. as a standalone page section), add a `standalone` boolean prop rather than creating a separate component. The prop should adjust: animation types, heading levels, visible buttons, and any other context-dependent details.
+
+```tsx
+export default function ProjectCard({ project, standalone = false }: Props) {
+  const anim = standalone ? 'blur-fade' : 'slide-blur'
+  const Title = standalone ? 'h1' : 'h3'
+  // standalone hides the "Case study" button (would link to current page)
+  // standalone changes spacer size (one button vs two)
+}
+```
+
+Only use this pattern when the two contexts share the vast majority of their layout. If they diverge significantly, create separate components.
 
 ### Pattern: Astro fetches → React renders
 
@@ -165,7 +183,7 @@ Every Sanity-connected component has a hardcoded fallback array. If Sanity is no
 
 - Client: `src/lib/sanity.ts` — exports `client` and `urlFor`
 - Schemas: `ts2026-sanity/schemas/` — one file per content type
-- Current types: `project`, `testimonial`, `post`, `faq`
+- Current types: `project`, `testimonial`, `post`, `faq`, `milestone`
 
 ### GROQ query pattern
 
@@ -183,11 +201,41 @@ Always use `coalesce()` for optional fields:
 "coverImageAlt": coalesce(coverImageAlt, title)
 ```
 
+### Shared data files
+
+When the same fallback data and GROQ query are needed in multiple places (e.g. a section component AND a dynamic page), centralize them in `src/data/[type].ts`. Never duplicate fallback arrays across files.
+
+```ts
+// src/data/projects.ts
+export const PROJECTS_QUERY = `*[_type == "project"] | order(order asc) { ... }`
+export const FALLBACK_PROJECTS: Project[] = [ ... ]
+```
+
+Both the section component (`Work.astro`) and the dynamic page (`case-studies/[slug].astro`) import from this file.
+
+### `getStaticPaths` with Sanity
+
+For dynamic pages (`[slug].astro`), fetch all items in `getStaticPaths` and pass each as a `prop` — the page component receives it directly without a second fetch. Module-level imports (`client`, shared data) are accessible inside `getStaticPaths`.
+
+```ts
+export async function getStaticPaths() {
+  try {
+    const data = await client?.fetch(PROJECTS_QUERY)
+    if (data?.length) {
+      return data.map(item => ({ params: { slug: item.slug }, props: { item } }))
+    }
+  } catch {}
+  return FALLBACK_ITEMS.map(item => ({ params: { slug: item.slug }, props: { item } }))
+}
+
+const { item } = Astro.props
+```
+
 ### Deploying CMS changes
 
 The site is statically built on Vercel. Content changes require a rebuild:
 - Manual: `vercel --prod` from `ts2026-astro/`
-- Automated: Sanity webhook → Vercel deploy hook
+- Automated: Sanity webhook → Vercel deploy hook (not yet configured)
 
 ---
 
@@ -240,6 +288,20 @@ When slides have a `border-right` and the slider wrapper also has a `border-righ
 When all cards in a slider must share the same height, the correct approach is to make the slide element a column flex container and have the card fill it with `flex: 1`. Do not use `align-items: stretch` on the swiper wrapper (a Swiper class) and do not use `height: 100%` on the card — percentage heights require a defined height on the parent, which `height: auto` does not provide.
 
 The chain that works: slide element is `display: flex; flex-direction: column` → card has `flex: 1` → card's content wrapper has `flex: 1` to push optional elements (like a link) to the bottom.
+
+---
+
+## Nav Variants
+
+The `Nav` component accepts a `variant` prop that controls its positioning behavior:
+
+- `variant="fixed"` (default) — navbar is `position: fixed`, overlays page content. Used on the homepage where the hero covers the initial viewport.
+- `variant="sticky"` — navbar is `position: sticky; top: 0`. Used on inner pages (case studies, etc.) where content starts at the top and fixed positioning would overlap it.
+
+```astro
+<Nav />                    <!-- home — fixed, overlays content -->
+<Nav variant="sticky" />   <!-- inner pages — sticky, flows with content -->
+```
 
 ---
 
