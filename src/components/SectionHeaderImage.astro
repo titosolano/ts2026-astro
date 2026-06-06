@@ -19,11 +19,13 @@ const { label, subtitle, description, backgroundImage } = Astro.props
               data-anim="blur-fade"
             >{label}</h2>
             {subtitle && (
-              <div
-                class="text-style-section-subtitle text-color-grey"
-                data-anim="blur-fade"
-                data-anim-delay="0.1"
-              >{subtitle}</div>
+              <div class="max-width-medium">
+                <div
+                  class="text-style-section-subtitle text-color-grey"
+                  data-anim="blur-fade"
+                  data-anim-delay="0.1"
+                >{subtitle}</div>
+              </div>
             )}
             {description && (
               <div class="spacer-small"></div>
