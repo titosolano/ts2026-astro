@@ -1,0 +1,44 @@
+---
+import ContactForm from './ContactForm.tsx'
+---
+
+<section id="contact" class="section_contact">
+  <div class="contact_component">
+    <div class="padding-global">
+      <div class="container-large">
+        <div class="padding-section-medium">
+          <div class="contact_main-wrapper">
+
+            <div class="contact_left">
+              <div class="text-style-section-subtitle contact_eyebrow" data-anim="blur-fade">Get in touch</div>
+              <div class="spacer-small"></div>
+              <h2 class="heading-style-h1 contact_heading" data-anim="blur-fade" data-anim-delay="0.1">
+                Let's build<br />something great.
+              </h2>
+              <div class="spacer-medium"></div>
+              <div class="contact_meta-list">
+                <div class="contact_meta-item" data-anim="blur-fade" data-anim-delay="0.2">
+                  <div class="contact_meta-label">Email</div>
+                  <a href="mailto:hola@titosolano.com" class="contact_meta-value">hola@titosolano.com</a>
+                </div>
+                <div class="contact_meta-item" data-anim="blur-fade" data-anim-delay="0.25">
+                  <div class="contact_meta-label">Location</div>
+                  <div class="contact_meta-value">Costa Rica — available remotely</div>
+                </div>
+                <div class="contact_meta-item" data-anim="blur-fade" data-anim-delay="0.3">
+                  <div class="contact_meta-label">Availability</div>
+                  <div class="contact_meta-value">Open for projects — Q3 2026</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact_right" data-anim="fade" data-anim-delay="0.15">
+              <ContactForm client:load />
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
