@@ -272,18 +272,22 @@
 .process_mid-content { grid-column-gap: 2rem; grid-row-gap: 2rem; flex-flow: column; margin-left: -2rem; margin-right: -2rem; display: flex; }
 .process_list { grid-column-gap: 1px; grid-row-gap: 1px; background-color: var(--brand--grey-lines); grid-template-columns: 1fr 1fr 1fr 1fr; display: grid; }
 .process_list.is-3 { grid-template-columns: 1fr 1fr 1fr; }
-.process_group { background-color: var(--brand--white-grey); flex: 1; padding-left: 2rem; padding-right: 2rem; font-size: .875rem; }
+.process_group { background-color: var(--brand--white-grey); flex: 1; padding-left: 2rem; padding-right: 2rem; font-size: .875rem; display: flex; }
+.process_group-content { display: flex; flex-direction: column; flex: 1; padding-top: 2rem; padding-bottom: 2rem; }
+.process_group-content p { flex: 1; }
 .process_spacer { background-color: var(--brand--grey-light); height: 1px; margin-left: 2rem; margin-right: 2rem; }
+.process_principle { background-color: var(--brand--grey-light); background-image: url('/images/diagonal-lines-1.svg'); background-position: 0 0; background-size: 6px; padding: 0.625rem 0.875rem; font-size: .75rem; color: var(--brand--grey-dark); letter-spacing: 0.01em; margin-top: 1.5rem; display: flex; align-items: flex-start; gap: 0.5rem; }
+.process_principle .navbar_available-dot { flex-shrink: 0; margin-top: 0.35em; }
 
 @media screen and (max-width: 991px) {
   .process_mid-content { grid-column-gap: 0rem; grid-row-gap: 0rem; margin: -3rem -2.5rem -5rem; }
   .process_list { border-bottom: 1px solid var(--brand--grey-lines); grid-template-columns: 1fr 1fr; }
   .process_spacer { display: none; }
-  .process_group { padding-top: 2rem; padding-bottom: 2rem; }
+  .process_group-content { padding-top: 2rem; padding-bottom: 2rem; }
 }
 @media screen and (max-width: 767px) {
   .process_mid-content { margin: -2rem -1.25rem -3.25rem; }
-  .process_group { padding: 1.5rem 1.25rem; }
+  .process_group-content { padding: 1.5rem 1.25rem; }
 }
 @media screen and (max-width: 479px) {
   .process_list, .process_list.is-3 { grid-template-columns: 1fr; }

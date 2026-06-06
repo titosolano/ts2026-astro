@@ -5,43 +5,48 @@ import ButtonCall from './ButtonCall.astro'
 const steps = [
   {
     icon: '/images/frame.svg',
-    label: 'Understand the Problem',
-    body: 'Every project starts by understanding the full context: business goals, user needs, brand direction, design intent, technical constraints, and long-term vision.\n\nThe right solution starts with understanding what needs to work, for whom, and why.',
+    label: 'Understand the Context',
+    body: 'The best projects usually start with good questions. Before thinking about design or development, I like understanding the business, the people behind it, and what success actually looks like.',
+    principle: 'Better understanding leads to better decisions.',
   },
   {
     icon: '/images/system.svg',
-    label: 'Define the System',
-    body: 'I define the structure, process, tools, and technical direction needed to turn the idea into a clear and sustainable digital solution. This includes experience structure, design workflow, functionality, CMS logic, integrations, automation, and the right stack for the project.\n\nThe goal is to choose what is simple, scalable, usable, and easy to maintain.',
+    label: 'Shape the Solution',
+    body: 'Every project requires a different balance of design, technology, process, and execution. This stage is about defining the right direction, choosing the right tools, and shaping a solution that makes sense for the goals, the users, and the people who will use and manage it.',
+    principle: 'The best solution is rarely the most complex one.',
   },
   {
     icon: '/images/precision.svg',
     label: 'Build with Precision',
-    body: 'I develop with attention to detail, performance, responsiveness, interaction, and maintainability, making sure the final experience preserves the design intent and works cleanly across real use cases.\n\nExecution should feel refined, stable, and carefully crafted.',
+    body: 'This is where ideas become real. I care deeply about implementation quality, visual refinement, usability, responsiveness, performance, and all the details that make digital experiences feel intentional.',
+    principle: 'Details matter more than they seem.',
   },
   {
     icon: '/images/iterate.svg',
-    label: 'Iterate & Improve',
-    body: 'Digital experiences evolve. I refine systems, improve workflows, optimize interactions, and adapt solutions based on feedback, usage, and future needs.\n\nGood systems are designed to grow without becoming difficult to manage.',
+    label: 'Refine & Evolve',
+    body: 'Digital products rarely stay still. As businesses grow and priorities change, systems need to adapt. I believe in building solutions that can evolve over time without becoming difficult to manage.',
+    principle: 'Good digital products are never truly finished.',
   },
 ]
 
 const principles = [
-  'Clarity through structure.',
-  'Consistency creates scalability.',
-  'Design should support function.',
-  'Build for evolution, not short-term fixes.',
-  'Execution is part of the design process.',
-  'Simplicity is achieved through refinement.',
-  'Every detail should serve a purpose.',
+  'Design should solve a real business need.',
+  'Usability comes before visual complexity.',
+  'Good structure creates better user experiences.',
+  'Every decision should consider the people using the product.',
+  'Technology should support the business, the team, and the user.',
+  'The best solutions balance design, function, and maintainability.',
+  'Clear systems make websites easier to grow, manage, and improve.',
 ]
 
 const expectations = [
-  'Design aligned with technical execution',
-  'Structured thinking from day one',
-  'Clear and intentional decision-making',
-  'Attention to detail across the entire experience',
-  'Reliable communication and collaboration',
-  'Focus on clarity, usability, and performance',
+  'Direct and honest communication.',
+  'Thoughtful questions before jumping into execution.',
+  'Clear recommendations based on experience.',
+  'Design aligned with technical execution.',
+  'Attention to detail across the entire experience.',
+  'Flexible solutions built for long-term growth.',
+  'A partner who understands both design and development.',
 ]
 ---
 
@@ -51,7 +56,7 @@ const expectations = [
     <SectionHeaderImage
       label="Approach"
       subtitle="Understand first. Define with intent. Build systems that scale."
-      description="Every project starts by understanding the full context: business goals, user needs, design direction, technical requirements, and long-term vision. From there, I define the right structure, tools, and workflow to create digital experiences that are clear, usable, maintainable, and built with precision."
+      description="Successful digital projects rarely come from following a rigid process. They come from asking the right questions, making thoughtful decisions, and balancing design, technology, and business needs along the way."
       backgroundImage="/images/background-sections.avif"
     />
 
@@ -62,7 +67,7 @@ const expectations = [
 
             <!-- Row 1: 4 process steps -->
             <div class="process_list">
-              {steps.map(({ icon, label, body }, i) => (
+              {steps.map(({ icon, label, body, principle }, i) => (
                 <div class="process_group">
                   <div class="process_group-content"
                     data-anim="blur-fade"
@@ -71,8 +76,12 @@ const expectations = [
                     <img src={icon} loading="lazy" alt="" class="icon-embed-xsmall" />
                     <div class="spacer-small"></div>
                     <h3 class="heading-style-label">{label}</h3>
-                    <div class="spacer-xsmall"></div>
-                    {body.split('\n\n').map((para) => <p>{para}</p>)}
+                    <div class="spacer-small"></div>
+                    <p>{body}</p>
+                    <div class="process_principle">
+                      <div class="navbar_available-dot"><div class="green-light"></div></div>
+                      <span>{principle}</span>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -103,7 +112,7 @@ const expectations = [
                 >
                   <h3 class="heading-style-label">How I Work</h3>
                   <div class="spacer-small"></div>
-                  <p>"My process combines design sensitivity, technical thinking, and practical decision-making to build digital experiences that are scalable, maintainable, and carefully implemented."</p>
+                  <p>"I enjoy collaborating with teams that care about quality, clarity, and building things the right way. My role often sits between design and development, helping turn ideas into digital experiences that are thoughtful, useful, and well executed."</p>
                   <div class="spacer-small"></div>
                   <div class="button-group">
                     <ButtonCall />
