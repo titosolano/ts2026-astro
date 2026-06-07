@@ -241,7 +241,6 @@ figcaption { text-align: center; margin-top: .25rem; }
 .container-medium { width: 100%; max-width: 64rem; margin-left: auto; margin-right: auto; }
 .container-large  { width: 100%; max-width: 95rem; margin-left: auto; margin-right: auto; }
 .container-xlarge { width: 100%; max-width: 100rem; margin-left: auto; margin-right: auto; }
-.container-wrapper { border-left: 1px solid var(--brand--grey-lines); margin-left: -1.25rem; margin-right: -1.25rem; padding-left: 1.25rem; padding-right: 1.25rem; position: relative; }
 
 .max-width-xxsmall { width: 100%; max-width: 12rem; }
 .max-width-xsmall  { width: 100%; max-width: 16rem; }

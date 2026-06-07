@@ -156,6 +156,7 @@
 .header-home_bottom-left-list { grid-column-gap: 1rem; grid-row-gap: 1rem; font-family: var(--_fonts---fantasy); color: var(--brand--grey-dark); letter-spacing: .2em; text-transform: uppercase; flex-flow: row; justify-content: flex-start; align-items: center; font-size: .6rem; display: flex; }
 
 .header-home_background-image-wrapper { z-index: 0; opacity: .93; background-image: none; position: absolute; inset: 0%; overflow: clip; }
+.header-home_container-wrapper { border-left: 1px solid var(--brand--grey-lines); margin-left: -1.25rem; margin-right: -1.25rem; padding-left: 1.25rem; padding-right: 1.25rem; position: relative; }
 .header-home_background-image-layer { position: absolute; inset: 0; }
 .header-home_background-image { z-index: 0; opacity: .95; object-fit: cover; object-position: 100% 50%; height: 100%; position: absolute; inset: 0% 0% 0% auto; }
 .header-home_background-image-overlay { position: absolute; inset: 0; background-color: transparent; pointer-events: none; }
@@ -178,7 +179,7 @@
   .header-home_artist-image-wrapper { right: 20%; }
   .header-home_background-overlay { background-image: linear-gradient(90deg, #ececec 23%, #fbfafa00 58%); }
   .header-home_background-image-overlay { background-color: rgba(236,236,236,0.45); }
-  .header-home_testimonial-space { border-bottom: 1px solid var(--brand--grey-lines); }
+  .header-home_testimonial-space { border-top: 1px solid var(--brand--grey-lines); border-bottom: 1px solid var(--brand--grey-lines); }
 }
 @media screen and (max-width: 767px) {
   .header-home_heading { font-size: 2.5rem; }
@@ -186,6 +187,7 @@
   .header-home_bottom-bar { background-image: none; }
   .header-home_artist-image-wrapper { opacity: .9; right: -18%; }
   .header-home_background-overlay { background-image: linear-gradient(90deg, #ececec 18%, #fbfafa00 58%); }
+  .header-home_container-wrapper { border-left: none; }
 }
 @media screen and (max-width: 479px) {
   .header-home_content { min-height: calc(100svh - 2rem); }
@@ -315,7 +317,7 @@
 
 /* Testimonial responsive */
 @media screen and (max-width: 991px) {
-  .testimonial-slider_component { background-color: var(--brand--white-grey); color: var(--brand--black); background-image: none; }
+  .testimonial-slider_component { background-color: var(--brand--white-grey); color: var(--brand--black); background-image: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
   .testimonial-slider_slider-position { max-width: calc(100% - 3rem); }
 }
 @media screen and (max-width: 767px) {
