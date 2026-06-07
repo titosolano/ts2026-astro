@@ -16,3 +16,6 @@ dist/
 # Editor
 .vscode/
 .vercel
+
+# Claude Code — skills y configuración local
+.claude/
