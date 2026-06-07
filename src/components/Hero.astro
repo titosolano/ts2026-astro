@@ -153,19 +153,22 @@ try {
 
       <!-- Background image + portrait -->
       <div class="header-home_background-image-wrapper">
-        <img
-          width="1672"
-          height="941"
-          alt="Modern concrete interior with angular walls illuminated by a bright yellow light strip."
-          src="/images/edited-1.avif"
-          loading="eager"
-          fetchpriority="high"
-          class="header-home_background-image"
-          data-anim="fade"
-          data-anim-trigger="load"
-          data-anim-duration="1.2"
-          data-anim-delay="0.1"
-        />
+        <div class="header-home_background-image-layer">
+          <img
+            width="1672"
+            height="941"
+            alt="Modern concrete interior with angular walls illuminated by a bright yellow light strip."
+            src="/images/edited-1.avif"
+            loading="eager"
+            fetchpriority="high"
+            class="header-home_background-image"
+            data-anim="fade"
+            data-anim-trigger="load"
+            data-anim-duration="1.2"
+            data-anim-delay="0.1"
+          />
+          <div class="header-home_background-image-overlay"></div>
+        </div>
         <div class="header-home_artist-image-wrapper"
           data-anim="slide-right"
           data-anim-trigger="load"

@@ -156,7 +156,9 @@
 .header-home_bottom-left-list { grid-column-gap: 1rem; grid-row-gap: 1rem; font-family: var(--_fonts---fantasy); color: var(--brand--grey-dark); letter-spacing: .2em; text-transform: uppercase; flex-flow: row; justify-content: flex-start; align-items: center; font-size: .6rem; display: flex; }
 
 .header-home_background-image-wrapper { z-index: 0; opacity: .93; background-image: none; position: absolute; inset: 0%; overflow: clip; }
+.header-home_background-image-layer { position: absolute; inset: 0; }
 .header-home_background-image { z-index: 0; opacity: .95; object-fit: cover; object-position: 100% 50%; height: 100%; position: absolute; inset: 0% 0% 0% auto; }
+.header-home_background-image-overlay { position: absolute; inset: 0; background-color: transparent; pointer-events: none; }
 .header-home_artist-image-wrapper { z-index: 1; pointer-events: none; position: absolute; inset: 0% 45% 0% 0%; }
 .header-home_background-overlay { z-index: 1; background-image: linear-gradient(90deg, #ececec 8%, #fbfafa00 16%); width: 100vw; position: absolute; inset: 0%; }
 .header-home_artist-photo { opacity: .58; mix-blend-mode: multiply; object-fit: cover; object-position: 100% 50%; height: 100%; position: absolute; inset: 0% 0% 0% auto; transform: rotate(0); }
@@ -175,6 +177,7 @@
   .header-home_bottom-bar { background-color: color-mix(in hsl, var(--brand--white-grey) 30%, transparent); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); }
   .header-home_artist-image-wrapper { right: 20%; }
   .header-home_background-overlay { background-image: linear-gradient(90deg, #ececec 23%, #fbfafa00 58%); }
+  .header-home_background-image-overlay { background-color: rgba(236,236,236,0.45); }
   .header-home_testimonial-space { border-bottom: 1px solid var(--brand--grey-lines); }
 }
 @media screen and (max-width: 767px) {
