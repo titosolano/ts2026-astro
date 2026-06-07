@@ -90,8 +90,8 @@ export default function WorkSlider({ projects }: Props) {
                 <SliderButtons
                   prevClass="work-swiper-prev"
                   nextClass="work-swiper-next"
-                  prevLabel="Previous Project"
-                  nextLabel="Next Project"
+                  prevLabel='Previous<span class="hide-mobile"> Project</span>'
+                  nextLabel='Next<span class="hide-mobile"> Project</span>'
                 />
               </div>
             </div>

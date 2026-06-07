@@ -28,10 +28,10 @@ export default function SliderButtons({
               </div>
             ))}
           </div>
-          {prevLabel && <div>{prevLabel}</div>}
+          {prevLabel && <div dangerouslySetInnerHTML={{ __html: prevLabel }} />}
         </button>
         <button className={`slider-buttons_button ${nextClass}`} aria-label="Next slide">
-          {nextLabel && <div>{nextLabel}</div>}
+          {nextLabel && <div dangerouslySetInnerHTML={{ __html: nextLabel }} />}
           <div className="slider-buttons_arrow-wrapper">
             {[0, 1].map((i) => (
               <div key={i} className="slider-buttons_arrow-position">
