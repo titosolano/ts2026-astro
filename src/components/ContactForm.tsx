@@ -47,6 +47,7 @@ export default function ContactForm() {
 
   return (
     <form className="contact_form" onSubmit={handleSubmit} noValidate>
+      <input type="text" name="_gotcha" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
       <div className="contact_field-row">
         <div className="contact_field">
           <label className="contact_label" htmlFor="contact-name">Name</label>
