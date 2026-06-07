@@ -48,7 +48,7 @@
   border: 1px solid var(--brand--grey-lines);
   background-color: var(--brand--white-grey);
   background-image: linear-gradient(353deg, #ebebeb, var(--brand--white-grey) 54%);
-  height: 14rem;
+  height: 16rem;
   top: calc(var(--_dimensions---navbar-height) + 6rem + 2rem + 4rem);
   grid-template-columns: 1fr 1fr;
   grid-auto-columns: 1fr;
