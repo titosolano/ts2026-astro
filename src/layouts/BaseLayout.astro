@@ -42,10 +42,48 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Tito Solano",
-        "jobTitle": "Digital Systems Designer",
-        "url": "/"
+        "@type": "ProfilePage",
+        "name": "Tito Solano — Digital Systems Designer",
+        "url": "https://titosolano.com",
+        "inLanguage": "en",
+        "mainEntity": {
+          "@type": "Person",
+          "name": "Tito Solano",
+          "jobTitle": "Digital Systems Designer",
+          "description": "Design-led digital systems builder focused on high-end web experiences. I structure and build digital products where design, logic, and execution work together with precision.",
+          "image": "https://titosolano.com/images/titosolanoOG.jpg",
+          "url": "https://titosolano.com",
+          "sameAs": [],
+          "knowsAbout": [
+            "Webflow Development",
+            "Digital Systems Design",
+            "UI/UX Design",
+            "Web Development",
+            "Design Systems",
+            "Frontend Development",
+            "Sanity CMS",
+            "Astro",
+            "GSAP Animations",
+            "API Integrations",
+            "Workflow Automation"
+          ],
+          "hasCredential": [
+            {
+              "@type": "EducationalOccupationalCredential",
+              "name": "Client-First Certification",
+              "description": "One of the first six officially certified Client-First Webflow developers"
+            }
+          ],
+          "award": [
+            "CloneComp Grand Prize Winner",
+            "Webflow Speed Build Challenge Quarter-Finalist"
+          ]
+        },
+        "about": {
+          "@type": "Service",
+          "serviceType": "Digital Systems Design",
+          "description": "Design-led thinking, precision implementation, connected systems, and future-oriented workflows for high-end digital experiences."
+        }
       }
     </script>
   </head>

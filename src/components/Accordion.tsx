@@ -62,7 +62,11 @@ function AccordionItem({
         <div className="faq_item-content">
           <div className="max-width-large">
             {item.answer.split('\n\n').map((para, i) => (
-              <p key={i}>{para}</p>
+              <p key={i}>
+                {para.split('\n').map((line, j, arr) => (
+                  <span key={j}>{line}{j < arr.length - 1 && <br />}</span>
+                ))}
+              </p>
             ))}
           </div>
         </div>
