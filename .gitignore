@@ -1,5 +1,6 @@
 # Dependencies
 node_modules/
+sanity/node_modules/
 
 # Build output
 dist/
