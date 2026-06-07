@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
+const SITE_KEY = '6LeUJBEtAAAAAHnzrtE8aj8eX4azLhg3ApuHXZna'
 
 const ArrowSVG = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 7 14" fill="none" aria-hidden="true">
@@ -8,8 +10,20 @@ const ArrowSVG = () => (
 
 type Status = 'idle' | 'loading' | 'success' | 'error'
 
+declare global {
+  interface Window { grecaptcha: any }
+}
+
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>('idle')
+
+  useEffect(() => {
+    const script = document.createElement('script')
+    script.src = `https://www.google.com/recaptcha/api.js?render=${SITE_KEY}`
+    script.async = true
+    document.head.appendChild(script)
+    return () => { document.head.removeChild(script) }
+  }, [])
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -18,11 +32,20 @@ export default function ContactForm() {
     const data = new FormData(form)
 
     try {
-      const res = await fetch('https://formspree.io/f/xnjypppy', {
+      const recaptchaToken = await window.grecaptcha.execute(SITE_KEY, { action: 'contact' })
+
+      const res = await fetch('/api/contact', {
         method: 'POST',
-        body: data,
-        headers: { Accept: 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: data.get('name'),
+          email: data.get('email'),
+          subject: data.get('subject'),
+          message: data.get('message'),
+          recaptchaToken,
+        }),
       })
+
       if (res.ok) {
         setStatus('success')
         form.reset()
@@ -48,6 +71,7 @@ export default function ContactForm() {
   return (
     <form className="contact_form" onSubmit={handleSubmit} noValidate>
       <input type="text" name="_gotcha" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
+
       <div className="contact_field-row">
         <div className="contact_field">
           <label className="contact_label" htmlFor="contact-name">Name</label>
