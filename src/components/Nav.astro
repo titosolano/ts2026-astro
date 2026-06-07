@@ -30,10 +30,10 @@ const { variant = 'fixed' } = Astro.props
         <div class="navbar_menu-align-group">
           <div class="navbar_menu-links">
             {[
-              { href: '#work',         label: 'Work' },
-              { href: '#approach',     label: 'Approach' },
-              { href: '#capabilities', label: 'Capabilities' },
-              { href: '#about',        label: 'About' },
+              { href: '/#work',         label: 'Work' },
+              { href: '/#approach',     label: 'Approach' },
+              { href: '/#capabilities', label: 'Capabilities' },
+              { href: '/#about',        label: 'About' },
             ].map(({ href, label }, i) => (
               <a href={href} class="navbar_link"
                 data-anim="blur-fade"
