@@ -65,7 +65,7 @@ export default function ProjectCard({ project, standalone = false }: Props) {
                     )}
                     {project.url && (
                       <div className={standalone ? 'spacer-small' : 'spacer-medium'}>
-                        <div className="button-group">
+                        <div className="button-group is-gap-medium">
                           {!standalone && <ButtonArrow href={`/case-studies/${project.slug}`} label="Case study" />}
                           <ExternalButton href={project.url} label="Visit website" />
                         </div>

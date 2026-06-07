@@ -217,7 +217,7 @@
 .button-01_arrow-wrapper { z-index: 1; flex: none; background-color: var(--brand--black); color: #7bfb1a; border-radius: 100%; justify-content: flex-end; align-items: center; width: 1.25rem; height: 1.25rem; display: flex; position: relative; overflow: hidden; }
 .button-01_arrow-position { flex: none; justify-content: center; align-items: center; width: 100%; height: 100%; transition: transform .3s cubic-bezier(.86, 0, .07, 1); display: flex; position: relative; }
 .button-01_arrow-img { width: 1rem; height: .5rem; display: flex; }
-.button-01_background { background-color: #232324; position: absolute; inset: 0; z-index: 0; }
+.button-01_background { background-color: #232324; position: absolute; inset: 0; z-index: 0; transition: transform .3s cubic-bezier(.86, 0, .07, 1); }
 
 .button-01_main-wrapper:hover .button-01_arrow-position { transform: translateX(100%); }
 .button-01_main-wrapper:hover .button-01_background { transform: scale(0.98); }
