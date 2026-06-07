@@ -1,40 +1,36 @@
 /* ═══════════════════════════════════════════════════════════════
-   SECTIONS — Estilos específicos por sección de la página
+   SECTIONS — Page-specific styles
 
-   Cada sección tiene su bloque marcado con el nombre del
-   componente Astro y su estructura Client-First.
-   Para agregar una nueva sección, copiar el patrón de bloque
-   al final del archivo.
+   Each section has its own block marked with the Astro component
+   name and its Client-First structure.
+   To add a new section, copy the block pattern to the end of this file.
 
-   Secciones:
-     WORK         → Work.astro (pendiente)
-     CAPABILITIES → Capabilities.astro (pendiente)
-     ABOUT        → About.astro (pendiente)
-     FAQ          → Faq.astro (pendiente)
-     NEWS         → News.astro (pendiente)
-     PROCESS      → Approach.astro (pendiente)
-     USE-CASE     → plantilla reutilizable para páginas de proyecto
+   Sections:
+     WORK         → Work.astro
+     CAPABILITIES → Capabilities.astro
+     ABOUT        → About.astro
+     FAQ          → Faq.astro
+     NEWS         → News.astro
+     PROCESS      → Approach.astro
+     USE-CASE     → reusable template for project pages
+     CONTACT      → Contact.astro + ContactForm.tsx
 ═══════════════════════════════════════════════════════════════ */
 
 
 /* ──────────────────────────────────────────────────────────────
-   WORK → Work.astro (pendiente)
+   WORK → Work.astro
    section_work (overflow clip)
-   Aquí irán las clases del grid de proyectos cuando se construya.
-   Los proyectos vendrán de Sanity con el schema "project".
 ────────────────────────────────────────────────────────────── */
 
 .section_work { overflow: clip; }
 
-/* TODO: agregar work_component, work_grid, work_item, etc. */
-
 
 /* ──────────────────────────────────────────────────────────────
-   CAPABILITIES → Capabilities.astro (pendiente)
-   capabilities_component (background con patrón diagonal)
+   CAPABILITIES → Capabilities.astro
+   capabilities_component (diagonal pattern background)
      capabilities_top-wrapper (sticky header)
-     capabilities_item (sticky, apilado)
-       capabilities_item-thumb (tab en la parte superior)
+     capabilities_item (sticky, stacked)
+       capabilities_item-thumb (tab at the top)
        capabilities_item-left-content
 ────────────────────────────────────────────────────────────── */
 
@@ -86,7 +82,7 @@
 
 
 /* ──────────────────────────────────────────────────────────────
-   ABOUT → About.astro (pendiente)
+   ABOUT → About.astro
    section_layout7
      about-grid_component (border-bottom, overflow clip)
        about-grid_content (grid 2fr 3fr)
@@ -166,15 +162,15 @@
 
 
 /* ──────────────────────────────────────────────────────────────
-   FAQ → Faq.astro (pendiente)
+   FAQ → FAQ.astro + Accordion.tsx
    section_faq5
-     faq_component (background con patrón diagonal, border-bottom)
+     faq_component (diagonal pattern background, border-bottom)
        faq_main-wrapper (grid 1.5fr 1fr)
          faq_list (flex column, border)
            faq_accordion
-             faq_question (click para abrir)
-             faq_answer (overflow hidden, transición height)
-   El accordion usa interpolate-size para animar height: auto.
+             faq_question (click to open)
+             faq_answer (overflow hidden, height transition)
+   Height animation handled by GSAP in Accordion.tsx.
 ────────────────────────────────────────────────────────────── */
 
 .section_faq5 { position: relative; }
@@ -191,23 +187,12 @@
 .faq5_icon-wrapper { align-self: flex-start; width: 2rem; display: flex; }
 .faq5_arrow-icon { flex-direction: column; justify-content: center; align-items: center; width: 1rem; display: block; }
 
-/* Transición de altura — usa interpolate-size definido en global.css */
 .faq_answer { padding-left: 1.5rem; padding-right: 1.5rem; transition: max-height .5s ease-in-out; overflow: hidden; }
 .faq_item-content { padding-top: 2rem; padding-bottom: 2rem; }
 .faq_item-content p + p { margin-top: 1rem; }
 
-/* Accordion alternativo (fs = Finsweet) */
-.fs_accordion-2_component { grid-column-gap: 1rem; grid-row-gap: 1rem; grid-template-columns: 1fr; display: grid; }
-.fs_accordion-2_embed { margin-bottom: 0; display: none; }
-.fs_accordion-2_header { grid-column-gap: 1rem; grid-row-gap: 1rem; cursor: pointer; background-color: #f5f5f5; flex-direction: row; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; display: flex; }
-.fs_accordion-2_header:focus-visible, .fs_accordion-2_header[data-wf-focus-visible] { outline: 2px solid var(--accessible-components--dark-grey); outline-offset: 4px; }
-.fs_accordion-2_content { transition: max-height .2s; overflow: hidden; }
-.fs_accordion-2_body { background-color: #fff; padding: 1rem 1.5rem; }
-.fs_accordion-2_paragraph { margin-bottom: 0; }
-.fs_accordion-2_icon { margin-right: 0; font-size: 1.125rem; position: relative; }
-.fs_accordion-2_arrow-wrapper { transition: transform .2s; }
-.fs_accordion-2_arrow-wrapper.is-active-accordion { transform: rotate(45deg); }
-.fs_accordion-2_message { color: var(--accessible-components--dark-grey); }
+.faq_arrow-wrapper { transition: transform .2s; }
+.faq_arrow-wrapper.is-active-accordion { transform: rotate(45deg); }
 
 @media screen and (max-width: 991px) {
   .faq_main-wrapper { grid-template-columns: 1.5fr; }
@@ -262,11 +247,11 @@
 
 
 /* ──────────────────────────────────────────────────────────────
-   PROCESS / APPROACH → Approach.astro (pendiente)
+   PROCESS / APPROACH → Approach.astro
    process_component (border-top)
-     process_list (grid 4 columnas, con separador 1px)
-       process_group (columna individual)
-   process_mid-content — wrapper con margen negativo
+     process_list (4-column grid, 1px separator)
+       process_group (individual column)
+   process_mid-content — wrapper with negative margin
 ────────────────────────────────────────────────────────────── */
 
 .process_component { border-top: 1px solid var(--brand--grey-lines); flex: none; width: 100%; height: 100%; }
@@ -296,14 +281,14 @@
 
 
 /* ──────────────────────────────────────────────────────────────
-   USE-CASE TEMPLATE → plantilla para páginas de proyecto
+   USE-CASE TEMPLATE → reusable template for project pages
    use-case-template_component
      use-case-template_top-wrapper (flex row)
        use-case-template_top-left-content
-       use-case-template_features-list (grid 3 columnas)
+       use-case-template_features-list (3-column grid)
      use-case-template_mid-content
-     use-case-template_detail-list (grid 3 columnas)
-   Usar como base para src/pages/projects/[slug].astro
+     use-case-template_detail-list (3-column grid)
+   Base for src/pages/case-studies/[slug].astro
 ────────────────────────────────────────────────────────────── */
 
 .use-case-template_component { flex: none; width: 100%; height: auto; }
@@ -343,7 +328,7 @@
    CONTACT → Contact.astro + ContactForm.tsx
    section_contact
      contact_component
-       contact_main-wrapper (grid 2 cols)
+       contact_main-wrapper (2-column grid)
          contact_left  (heading + meta)
          contact_right (form)
 ────────────────────────────────────────────────────────────── */

@@ -93,8 +93,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 </html>
 
 <script>
-  // Marca el html con .js para que el CSS de data-anim pueda ocultar
-  // elementos antes de que GSAP corra (evita flash de contenido visible)
+  // Marks html with .js so data-anim CSS can hide elements before GSAP runs
   document.documentElement.classList.add('js')
 
   import { initAnimations } from '../lib/animations'

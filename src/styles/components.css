@@ -1,10 +1,10 @@
 /* ═══════════════════════════════════════════════════════════════
-   COMPONENTS — Estilos de componentes reutilizables
+   COMPONENTS — Reusable component styles
 
-   Cada sección está marcada con el nombre del componente Astro
-   correspondiente en src/components/.
-   Para agregar un nuevo componente, copiar el patrón de bloque
-   al final del archivo.
+   Each section is marked with the name of the corresponding
+   Astro component found in src/components/.
+   To add a new component, copy the block pattern to the end
+   of this file.
 
    Secciones:
      NAVBAR          → Nav.astro
@@ -21,12 +21,12 @@
 /* ──────────────────────────────────────────────────────────────
    NAVBAR → Nav.astro
    navbar_component (fixed, z-index 1000)
-     navbar_navbar (barra visible con blur)
+     navbar_navbar (visible bar with blur)
        navbar_container (flex row)
          navbar_logo-link
          navbar_menu
-           navbar_menu-links (links centro)
-           navbar_menu-buttons (botones derecha)
+           navbar_menu-links (centered links)
+           navbar_menu-buttons (right-side buttons)
          menu-icon (hamburger, visible en tablet/mobile)
 ────────────────────────────────────────────────────────────── */
 
@@ -76,7 +76,7 @@
 .navbar_menu-button { padding: 0; display: none; }
 .navbar_script, .navbar_interaction-script, .navbar_scroll-back { display: none; }
 
-/* Línea decorativa (separador horizontal/vertical) */
+/* Decorative line (horizontal/vertical separator) */
 .line_component { opacity: .5; position: absolute; inset: 0% 0% auto; }
 .line_component.horizontal-bottom { inset: auto 0% 0%; }
 .line_component.vertical-right { inset: 0% 0% 0% auto; }
@@ -89,7 +89,7 @@
 
 /* Navbar responsive */
 @media screen and (max-width: 991px) {
-  /* posición y tamaño del panel los maneja Nav.astro con fixed + css variables */
+  /* panel position and size managed by Nav.astro via fixed positioning + css variables */
   .navbar_menu { background-color: var(--brand--white-grey); -webkit-text-fill-color: inherit; background-clip: border-box; border-bottom-style: solid; border-bottom-width: 1px; align-items: stretch; padding: 1rem 5% 2rem; display: flex; }
   .navbar_menu-align-group { flex-flow: column; flex: 1; height: 100%; }
   .navbar_menu-links { grid-column-gap: 0rem; grid-row-gap: 0rem; flex-flow: column; display: flex; }
@@ -116,7 +116,7 @@
 
 /* ──────────────────────────────────────────────────────────────
    HERO → Hero.astro
-   section_header-home (wrapper de sección)
+   section_header-home (section wrapper)
      header-home_component (flex column, z-index 2)
        header-home_top-content
        header-home_content (min-height 100svh)
@@ -125,7 +125,7 @@
            header-home_heading (.is-secondary para texto gris)
        header-home_bottom-bar
        header-home_testimonial-position (absolute, bottom-right)
-       header-home_scroll-cta-wrapper (rotado -90deg)
+       header-home_scroll-cta-wrapper (rotated -90deg)
        header-home_background-image-wrapper
 ────────────────────────────────────────────────────────────── */
 
@@ -196,12 +196,12 @@
 
 /* ──────────────────────────────────────────────────────────────
    BUTTON-01 → ButtonArrow.astro
-   button-01_component (posición relativa)
+   button-01_component (relative position)
      button-01_main-wrapper (flex row, overflow hidden)
        button-01_text-wrapper (z-index 1, flex 1)
-       button-01_arrow-wrapper (círculo negro/verde, overflow hidden)
-         button-01_arrow-position × 2 (absolute, el segundo arranca en -100%)
-       button-01_background (absolute fill, fondo oscuro)
+       button-01_arrow-wrapper (black/green circle, overflow hidden)
+         button-01_arrow-position × 2 (absolute, second starts at -100%)
+       button-01_background (absolute fill, dark background)
    Variante navbar: is-navbar
 ────────────────────────────────────────────────────────────── */
 
@@ -222,9 +222,9 @@
    BUTTON-CALL → ButtonCall.astro
    button-call_main-wrapper (flex row)
      button-call_image-position
-       button-call_image-wrapper (foto circular)
+       button-call_image-wrapper (circular photo)
          button-call_image
-         button-call_active-dot (punto verde/gris)
+         button-call_active-dot (green/grey dot)
      button-call_text-wrapper
 ────────────────────────────────────────────────────────────── */
 
@@ -235,7 +235,7 @@
 .button-call_active-dot { z-index: 2; background-color: #656464; border-radius: 2rem; width: .75rem; height: .75rem; position: absolute; inset: auto 0% 0% auto; }
 .button-call_text-wrapper { z-index: 1; text-align: center; position: relative; }
 
-/* Link externo */
+/* External link */
 .external-button_component { grid-column-gap: .5rem; grid-row-gap: .5rem; font-family: var(--_fonts---fantasy); justify-content: space-between; align-items: center; margin-top: -.5rem; margin-bottom: -.5rem; padding-top: .5rem; padding-bottom: .5rem; font-size: .875rem; text-decoration: none; display: flex; }
 .external-button_icon { width: .75rem; height: .75rem; margin-bottom: -.1em; line-height: 0; }
 
@@ -244,8 +244,8 @@
    SECTION-HEADER → SectionHeader.astro
    section-header-01_component (border-bottom)
      section-header-01_main-wrapper (flex row)
-       section-header-01_left-content (label pequeño)
-       section-header-01_spacer (línea vertical)
+       section-header-01_left-content (small label)
+       section-header-01_spacer (vertical line)
        section-header-01_right-wrapper (heading + imagen)
    heading-tag_component — tag visual con borde
 ────────────────────────────────────────────────────────────── */
@@ -279,8 +279,8 @@
    testimonial-card_component
      testimonial-card_main-wrapper (flex column, justify space-between)
        testimonial-card_content-top (flex 1)
-         testimonial-card_rating-wrapper (estrellas)
-       testimonial-card_client (flex row, foto + nombre)
+         testimonial-card_rating-wrapper (stars)
+       testimonial-card_client (flex row, photo + name)
    testimonial-slider_component (glassmorphism panel)
      testimonial-slider_slider-position (max-width 28rem)
      testimonial-slider_buttons-position
@@ -320,11 +320,11 @@
    SLIDER → SliderControls.astro + TestimonialSlider.tsx
    slider-controls_component (flex row, space-between)
    slider-buttons_component (flex, separador 1px)
-     slider-buttons_button (botón prev/next)
+     slider-buttons_button (prev/next button)
        slider-buttons_arrow-wrapper
          slider-buttons_arrow-position
-   Variante vertical: is-vertical
-   swiper-pagination_component — dots de paginación
+   Vertical variant: is-vertical
+   swiper-pagination_component — pagination dots
 ────────────────────────────────────────────────────────────── */
 
 .slider-controls_component { justify-content: space-between; align-items: center; width: 100%; display: flex; }
@@ -348,7 +348,7 @@
 .slider-buttons_spacer:where(.is-vertical) { background-color: color-mix(in hsl, var(--brand--grey-lines) 20%, transparent); flex: none; width: 100%; height: 1px; display: block; }
 .slider-buttons_css { display: none; }
 
-/* Slider principal (work/news) */
+/* Main slider (work/news) */
 .slider-main_component { margin-top: 1px; position: relative; }
 .slider-main_slider-wrapper { border-right: 1px solid var(--brand--grey-lines); border-left: 1px solid var(--brand--grey-lines); overflow: clip; }
 .swiper.is-slider-main { z-index: 1; width: 100%; position: relative; overflow: visible; }
@@ -554,7 +554,7 @@
        footer4_top-wrapper (grid 3 columnas)
          footer4_group (columna con padding)
        footer4_bottom-wrapper (flex center)
-   footer_ classes para los elementos internos del footer custom
+   footer_ classes for the inner elements of the custom footer
 ────────────────────────────────────────────────────────────── */
 
 .footer4_component { border-top: 1px solid var(--brand--grey-lines); color: var(--brand--white-grey); position: relative; }

@@ -1,32 +1,31 @@
 /* ═══════════════════════════════════════════════════════════════
-   UTILITIES — Clases utilitarias base
+   UTILITIES — Base utility classes
 
-   Clases que se aplican directamente en el HTML para controlar
-   apariencia sin crear componentes. Siguen la convención de
-   naming del sistema (spacing, tipografía, layout).
+   Classes applied directly in HTML to control appearance without
+   creating components. Follow the system naming convention
+   (spacing, typography, layout).
 
-   Secciones:
-     1. TOKENS          — Variables CSS (:root)
-     2. RESET           — Elementos HTML base + Webflow primitives
+   Sections:
+     1. TOKENS          — CSS variables (:root)
+     2. RESET           — Base HTML elements + Webflow primitives
      3. TYPOGRAPHY      — heading-style-*, text-size-*, text-weight-*
      4. SPACING         — margin-*, padding-*, spacer-*
      5. LAYOUT          — container-*, max-width-*, page-wrapper, etc.
      6. VISIBILITY      — hide, hide-tablet, hide-mobile-*
      7. MISC            — aspect-ratio-*, overflow-*, z-index-*, icon-*, etc.
 
-   Para agregar una nueva utilidad, encontrá la sección correcta
-   y agregá la clase al final de esa sección.
+   To add a new utility, find the correct section and add the
+   class at the end of that section.
 ═══════════════════════════════════════════════════════════════ */
 
 
 /* ──────────────────────────────────────────────────────────────
-   1. TOKENS — Variables CSS globales
-   Colores de marca, tipografía y dimensiones del sistema.
-   Los tokens de Tailwind están en global.css dentro de @theme.
+   1. TOKENS — Global CSS variables
+   Brand colors, typography, and system dimensions.
 ────────────────────────────────────────────────────────────── */
 
 :root {
-  /* Colores de marca */
+  /* Brand colors */
   --brand--black: #232324;
   --brand--white-grey: #ececec;
   --brand--green: #7bfb1a;
@@ -35,27 +34,27 @@
   --brand--grey-light: #e2e2e2;
   --brand--grey-lines: lightgrey;
 
-  /* Tipografía */
+  /* Typography */
   --_fonts---text: Arimo, Arial, sans-serif;
   --_fonts---heading: Arimo, Arial, sans-serif;
   --_fonts---fantasy: "Space Mono", Arial, sans-serif;
 
-  /* Dimensiones del sistema */
+  /* System dimensions */
   --_dimensions---navbar-height: 5rem;
 
   /* Navbar */
   --navbar--text-color: var(--brand--black);
   --navbar--background: #fff0;
 
-  /* Accesibilidad */
+  /* Accessibility */
   --accessible-components--dark-grey: #9b9b9b;
 
 }
 
 
 /* ──────────────────────────────────────────────────────────────
-   2. RESET — Elementos HTML base y primitives de Webflow
-   No modificar directamente; usar heading-style-* para overrides.
+   2. RESET — Base HTML elements and Webflow primitives
+   Do not modify directly; use heading-style-* classes for overrides.
 ────────────────────────────────────────────────────────────── */
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -94,9 +93,9 @@ figcaption { text-align: center; margin-top: .25rem; }
 
 
 /* ──────────────────────────────────────────────────────────────
-   3. TYPOGRAPHY — Clases de estilo tipográfico
+   3. TYPOGRAPHY — Typographic style classes
    heading-style-h1..h6, text-size-*, text-weight-*, text-style-*
-   Para agregar variante tipográfica nueva, agregá aquí.
+   To add a new typographic variant, add it here.
 ────────────────────────────────────────────────────────────── */
 
 .heading-style-h1 { font-family: var(--_fonts---heading); text-transform: uppercase; font-size: 4rem; font-weight: 700; line-height: 1.1; }
@@ -139,14 +138,14 @@ figcaption { text-align: center; margin-top: .25rem; }
 
 .text-color-grey { color: #656464; }
 
-/* Rich text — wrapper para contenido de Sanity/CMS */
+/* Rich text — wrapper for Sanity/CMS content */
 .text-rich-text h1, .text-rich-text h2, .text-rich-text h3, .text-rich-text h4 { margin-top: 1.5rem; margin-bottom: 1rem; }
 .text-rich-text h5, .text-rich-text h6 { margin-top: 1.25rem; margin-bottom: 1rem; }
 .text-rich-text p { margin-bottom: 1rem; }
 .text-rich-text ul, .text-rich-text ol { margin-bottom: 1.5rem; }
 .text-rich-text blockquote { margin-top: 2rem; margin-bottom: 2rem; }
 
-/* Listas con ícono custom */
+/* Lists with custom icon */
 .dots-list-text li { background-image: url('/images/dots-icon.svg'); background-position: 0 .4rem; background-repeat: no-repeat; background-size: .5rem; padding-left: 1rem; list-style-type: none; display: flex; }
 .dots-list-text ul { padding-left: 0; }
 
@@ -177,7 +176,7 @@ figcaption { text-align: center; margin-top: .25rem; }
    Scale: tiny(.125) xxsmall(.25) xsmall(.5) small(1) custom1(1.5)
    medium(2) custom2(2.5) large(3) custom3(3.5) xlarge(4) xxlarge(5)
    huge(6) xhuge(8) xxhuge(12)
-   Uso: class="margin-top margin-large" → margin-top: 3rem
+   Usage: class="margin-top margin-large" → margin-top: 3rem
 ────────────────────────────────────────────────────────────── */
 
 .padding-0{padding:0} .padding-tiny{padding:.125rem} .padding-xxsmall{padding:.25rem} .padding-xsmall{padding:.5rem} .padding-small{padding:1rem} .padding-custom1{padding:1.5rem} .padding-medium{padding:2rem} .padding-custom2{padding:2.5rem} .padding-large{padding:3rem} .padding-custom3{padding:3.5rem} .padding-xlarge{padding:4rem} .padding-xxlarge{padding:5rem} .padding-huge{padding:6rem} .padding-xhuge{padding:8rem} .padding-xxhuge{padding:12rem}
@@ -231,7 +230,7 @@ figcaption { text-align: center; margin-top: .25rem; }
 
 
 /* ──────────────────────────────────────────────────────────────
-   5. LAYOUT — Contenedores, max-width, posicionamiento
+   5. LAYOUT — Containers, max-width, positioning
    container-small(48) medium(64) large(95) xlarge(100)
    max-width-xxsmall(12) ... max-width-xxlarge(80)
 ────────────────────────────────────────────────────────────── */
@@ -274,7 +273,7 @@ figcaption { text-align: center; margin-top: .25rem; }
 .aspect-ratio-landscape  { aspect-ratio: 3 / 2;  object-fit: cover; }
 .aspect-ratio-widescreen { aspect-ratio: 16 / 9; object-fit: cover; }
 
-/* Iconos */
+/* Icons */
 .icon-1x1-small  { flex: none; width: 1rem;   height: 1rem; }
 .icon-1x1-medium { width: 2rem;   height: 2rem; }
 .icon-1x1-large  { width: 2.5rem; height: 2.5rem; }
@@ -286,6 +285,7 @@ figcaption { text-align: center; margin-top: .25rem; }
 .icon-embed-custom  { flex-direction: column; justify-content: center; align-items: center; width: 3.5rem; height: 2.625rem; display: flex; }
 
 /* Utility pages (404, etc.) */
+
 .utility-page_component { justify-content: center; align-items: center; width: 100vw; max-width: 100%; height: 100vh; max-height: 100%; padding-left: 1.25rem; padding-right: 1.25rem; display: flex; }
 .utility-page_wrapper { grid-column-gap: 1rem; grid-row-gap: 1rem; text-align: center; flex-direction: column; justify-content: flex-start; align-items: stretch; max-width: 20rem; display: flex; }
 .utility-page_form { grid-column-gap: 1rem; grid-row-gap: 1rem; flex-direction: column; justify-content: flex-start; align-items: stretch; display: flex; }
@@ -312,7 +312,7 @@ figcaption { text-align: center; margin-top: .25rem; }
 
 
 /* ──────────────────────────────────────────────────────────────
-   7. MISC — Clases de uso general que no encajan en otra categoría
+   7. MISC — General-purpose classes that don't fit another category
 ────────────────────────────────────────────────────────────── */
 
 .button-group { grid-column-gap: 1rem; grid-row-gap: 1rem; flex-flow: wrap; justify-content: flex-start; align-items: center; display: flex; }

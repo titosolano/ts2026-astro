@@ -54,7 +54,7 @@ function AccordionItem({
     >
       <div className="faq_question" onClick={onToggle} role="button" tabIndex={0} aria-expanded={isOpen}>
         <div className="heading-cards">{item.question}</div>
-        <div className={`fs_accordion-2_arrow-wrapper${isOpen ? ' is-active-accordion' : ''}`}>
+        <div className={`faq_arrow-wrapper${isOpen ? ' is-active-accordion' : ''}`}>
           <img src="/images/open.svg" loading="lazy" alt="" className="faq5_arrow-icon" />
         </div>
       </div>

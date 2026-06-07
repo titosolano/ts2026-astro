@@ -1,23 +1,23 @@
 /* ═══════════════════════════════════════════════════════════════
-   GLOBAL — Punto de entrada de todos los estilos
+   GLOBAL — Entry point for all styles
 
-   El orden de imports importa: Tailwind primero, luego el sistema
-   Client-First, luego componentes, luego secciones.
+   Import order matters: utilities first (tokens, reset, typography),
+   then components, then sections.
 
-   Para agregar estilos nuevos:
-     • Utilidades reutilizables → client-first.css (sección correspondiente)
-     • Nuevo componente         → components.css (al final)
-     • Nueva sección de página  → sections.css (al final)
-     • Tokens de diseño         → :root en client-first.css, sección 1
+   Where to add new styles:
+     • Reusable utilities  → utilities.css (matching section)
+     • New component       → components.css (at the end)
+     • New page section    → sections.css (at the end)
+     • Design tokens       → :root in utilities.css, section 1
 ═══════════════════════════════════════════════════════════════ */
 
-/* Utilidades base: tokens, reset, tipografía, spacing, layout */
+/* Base utilities: tokens, reset, typography, spacing, layout */
 @import "./utilities.css";
 
-/* Componentes reutilizables: navbar, hero, buttons, testimonial, slider, footer */
+/* Reusable components: navbar, hero, buttons, testimonial, slider, footer */
 @import "./components.css";
 
-/* Secciones de la página: work, capabilities, about, faq, news, process */
+/* Page sections: work, capabilities, about, faq, news, process */
 @import "./sections.css";
 
 
@@ -62,7 +62,7 @@ html { font-size: calc(0.625rem + 0.41666666666666663vw); }
 @media screen and (max-width: 479px) { .hide-mobile { display: none !important; } }
 
 
-/* ── Card link overlay (usado en project cards) ── */
+/* ── Card link overlay (used in project cards) ── */
 
 .card-link-wrapper::before {
   content: "";
@@ -78,9 +78,9 @@ html { font-size: calc(0.625rem + 0.41666666666666663vw); }
 :root { interpolate-size: allow-keywords; }
 
 
-/* ── Animaciones data-anim ──
-   Los elementos con data-anim se ocultan en desktop antes de que
-   GSAP corra. En mobile/touch siempre son visibles (ver animations.ts).
+/* ── data-anim animations ──
+   Elements with data-anim are hidden on desktop before GSAP runs.
+   On mobile/touch they are always visible (see animations.ts).
 ────────────────────────────────────────────────────────────── */
 
 @media screen and (min-width: 992px) and (hover: hover) and (pointer: fine) {
@@ -90,7 +90,7 @@ html { font-size: calc(0.625rem + 0.41666666666666663vw); }
   }
 }
 
-/* Fallback: touch devices nunca quedan ocultos */
+/* Fallback: touch devices are never hidden */
 @media screen and (hover: none), screen and (pointer: coarse) {
   html.js [data-anim] {
     opacity: 1 !important;
