@@ -41,14 +41,12 @@ export default function ProjectCard({ project, standalone = false }: Props) {
                   data-anim={anim}
                   data-anim-delay="0.1"
                 >
-                  {project.featured && (
-                    <div className="heading-tag_component">
-                      <div className="heading-tag_wrapper">
-                        <img loading="lazy" src="/images/dots-icon.svg" alt="" className="heading-tag_icon" />
-                        <div className="text-color-green">Featured project</div>
-                      </div>
+                  <div className="heading-tag_component">
+                    <div className="heading-tag_wrapper">
+                      <img loading="lazy" src="/images/dots-icon.svg" alt="" className="heading-tag_icon" />
+                      <div className="text-color-green">Featured project</div>
                     </div>
-                  )}
+                  </div>
 
                   <div className="spacer-small" />
                   <div className="max-width-medium">
