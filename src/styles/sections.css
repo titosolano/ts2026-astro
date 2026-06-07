@@ -277,6 +277,8 @@
 }
 @media screen and (max-width: 479px) {
   .process_list, .process_list.is-3 { grid-template-columns: 1fr; }
+  .process_group-content { padding-top: 0; padding-bottom: 0; }
+  .process_group { padding-left: 0; padding-right: 0; }
 }
 
 
