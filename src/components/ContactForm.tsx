@@ -129,6 +129,9 @@ export default function ContactForm() {
           type="submit"
           className="button-01_main-wrapper"
           disabled={status === 'loading'}
+          data-cta="contact_form"
+          data-cta-location="contact_page"
+          data-cta-context="form_submit"
         >
           <div className="button-01_text-wrapper">
             <div>{status === 'loading' ? 'Sending...' : 'Send message'}</div>

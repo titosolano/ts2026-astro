@@ -7,15 +7,21 @@ const ExternalLinkSVG = () => (
 interface Props {
   href: string
   label: string
+  cta?: string
+  ctaLocation?: string
+  ctaContext?: string
 }
 
-export default function ExternalButton({ href, label }: Props) {
+export default function ExternalButton({ href, label, cta, ctaLocation, ctaContext }: Props) {
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
       className="external-button_component"
+      data-cta={cta}
+      data-cta-location={ctaLocation}
+      data-cta-context={ctaContext}
     >
       <div>{label}</div>
       <div className="external-button_icon">

@@ -9,9 +9,12 @@ interface Props {
   label: string
   target?: string
   variant?: 'base' | 'navbar'
+  cta?: string
+  ctaLocation?: string
+  ctaContext?: string
 }
 
-export default function ButtonArrow({ href, label, target, variant = 'base' }: Props) {
+export default function ButtonArrow({ href, label, target, variant = 'base', cta, ctaLocation, ctaContext }: Props) {
   const isNavbar = variant === 'navbar'
   return (
     <div className="button-01_component">
@@ -20,6 +23,9 @@ export default function ButtonArrow({ href, label, target, variant = 'base' }: P
         target={target}
         rel={target === '_blank' ? 'noopener noreferrer' : undefined}
         className={`button-01_main-wrapper${isNavbar ? ' is-navbar' : ''}`}
+        data-cta={cta}
+        data-cta-location={ctaLocation}
+        data-cta-context={ctaContext}
       >
         <div className="button-01_text-wrapper">
           <div>{label}</div>

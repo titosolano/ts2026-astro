@@ -2,10 +2,16 @@
 interface Props {
   label?: string
   href?: string
+  cta?: string
+  ctaLocation?: string
+  ctaContext?: string
 }
 const {
   label = 'Book a Call',
   href = 'https://calendar.app.google/rPFNct2B1jgaPacv5',
+  cta,
+  ctaLocation,
+  ctaContext,
 } = Astro.props
 ---
 
@@ -15,6 +21,9 @@ const {
     target="_blank"
     rel="noopener noreferrer"
     class="button-call_main-wrapper button-01_main-wrapper"
+    data-cta={cta}
+    data-cta-location={ctaLocation}
+    data-cta-context={ctaContext}
   >
     <div class="button-call_image-position">
       <div class="button-call_image-wrapper">
